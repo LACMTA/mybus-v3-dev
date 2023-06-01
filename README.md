@@ -1,125 +1,127 @@
-# 11ty-web-template
+# MyBus v2.0
 
-Use this template for quick prototypes and simple websites.  This template uses the [Eleventy (11ty) static site generator](https://www.11ty.dev/).
+The MyBus site was re-implemented using [`LACMTA/11ty-web-template`](https://github.com/LACMTA/11ty-web-template).
 
 ## Quickstart
 
-1. Use `node --version` to verify you're running Node 16 or newer.
+### Install
 
-2. Fork or use this template repository to create a new project.
+Use `node --version` to verify you're running Node 12 or newer.
 
-3. Set up the configuration for your project:
+### Local Development
 
-    - `.eleventy.js` - update `pathPrefix` to your project's folder/repository name
-    - `src/_includes/default.liquid` - update the `title` for your project
+Run this command to build & serve the site locally. It will automatically rebuild and reload the site if any files are modified.
 
-4. Install `uswds`:
+``` bash
+npm run dev:serve
+```
 
-    ``` bash
-    npm install @uswds/uswds --save-dev
-    ```
+❗❗❗ If this is your first time running `@11ty/eleventy`, the package will be installed. Type `y` when prompted to proceed.
 
-5. Install `uswds-compiler`:
+Open `http://localhost:8080/` in your browser to view the site.
 
-    ``` bash
-    npm install @uswds/compile --save-dev
-    ```
+### Config
 
-6. Start the gulp process and have it watch for changes to recompile the styles:
+`package.json` includes a few pre-defined scripts and a local environment variable to help with running/building the site.  The logic to check the environment variable and determine whether to build with the `pathPrefix` is in `.eleventy.js`.
 
-    ``` bash
-    npx gulp watch
-    ```
+| Command | `NODE_ENV` | Usage |
+| ------- | ---------- | ----- |
+| `npm run dev:serve` | `dev` | Use this locally while developing to build and serve the site for testing. By default, this will use the `pathPrefix` value (defined in `.eleventy.js`) but the `pathPrefix` only matters here if you are serving the site from a parent directory instead of the repo's directory. |
+| `npm run dev:build` | `dev` | Use this to build the site for deploying to a GitHub repo hosted via GitHub Pages **without** a custom domain. This is because the site's URL will be under a subdirectory: `<org-name>.github.io/<repo-name>/` and you will need the paths to be built accordingly. |
+| `npm run prod:build` | `prod` | Use this to build the site for deploying to a GitHub repo hosted via GitHub Pages **with** a custom domain. This will cause link paths to be built without a `pathPrefix`. |
 
-7. Build and serve the site (will automatically reload when files change):
+`.github/workflows/node.js.yml` needs to use the npm command you want to be run via GitHub Actions:
 
-    ``` bash
-    npm run start
-    ```
+``` yaml
+    - name: Build Site
+      run: npm run prod:build
+```
 
-    ❗❗❗ If this is your first time using 11ty, the `@11ty/eleventy` package will be installed. Type `y` when prompted to proceed.
+### USWDS
 
-8. Open `http://localhost:8080/` to view the site.
+10/10 - Integrated USWDS by running `npm install uswds` and `npm install @uswds/compile`.  `gulpfile.js` configures the compiler and running `npx gulp init` initializes the folders defined in the configuration: `_theme/` and `assets/`.
 
-9. Turn on GitHub Pages by selecting to deploy from the `main` branch `/docs` folder.
+This line was added to `.elenventy.js`: `eleventyConfig.addPassthroughCopy("assets/uswds");`.
 
-## Configuration
+CSS and JS files are linked to in `head.liquid`:
 
-### Publish to GitHub Pages
+``` html
+<link rel="stylesheet" href="{{ '/assets/uswds/css/styles.css' | url }}">
+<script src="{{ '/assets/uswds/js/uswds-init.min.js' | url }}"></script>
+```
 
-This web template has already been set up to publish on GitHub Pages with these following settings:
+JS file also linked to at the bottom of `footer.liquid`:
 
-- `/.eleventy.js`
-  - Output directory changed from the default `_site/` to the directory used by GitHub Pages: `docs/`.
-  - Path prefix added using the repository name.  11ty builds links using the root as the default but GitHub Pages with no custom domain will follow this URL format: `https://{account}.github.io/{repository-name}/`.
+``` html
+<script src="{{ '/assets/uswds/js/uswds.min.js' | url }}"></script>
+```
 
-### Relative Paths
+Run `npx gulp compile` to recompile the files.  Run `npx gulp watch` to watch the script for chnages and automatically recompile.
 
-Use the `url` filter when creating relative links so that 11ty builds paths with the pathPrefix.
+### Development Notes
 
-### 11ty Ignored Files
+Make sure links to site pages, assets, etc. are built relatively using this syntax:
+
+```
+{{ 'path' | url }}
+```
+
+Where `path` is the path to the resource under the `src` folder. It needs a leading `/`. Example:
+
+```
+/img/articulated-buses-mobile.png
+```
+
+## Updates
+
+### Schedule PDF File Name Normalization
+
+`rename.js` contains a script the checks all the schedule PDF file names and renames them to a standard format: `###_TT_MM-DD-YY.pdf` or `###-###_TT_MM-DD-YY.pdf`.
+
+After receiving new PDFs from the Scheduling team, run this script using the following command:
+
+``` bash
+npm run rename
+```
+
+Props to [@scriptex for this Gist](https://gist.github.com/scriptex/20536d8cda36221f91d69a6bd4a528b3).
+
+❗❗❗ TODO: [populate the `_data/allChanges.json` file with these file names.](https://github.com/LACMTA/mybus-v2/issues/3)
+
+### Landing Page
+
+The content on the landing page changes periodically.  The options have been separated into their own `include` files inside the `_includes/index/` folder:
+
+- Between Shakeups we use `_includes/index/email-signup.liquid` to display the email signup form.  
+- During shakeups we use one of these two options, depending on how complex the changes are:
+  - We use `_includes/index/all-changes.liquid` if the changes are not extensive and we decide to only link to the "All Changes" page.
+  - We use `_includes/index/select-line.liquid` if there are lots of extensive changes and we want to give the visitors line/stop-specific information.
+
+## Using 11ty
+
+### Publishgin to GitHub Pages
+
+The `.eleventy.js` config file needs the following two settings for GitHub Pages publishing:
+
+1. Change the output directory from the default `_site/` to the directory used by GitHub Pages: `docs/`.
+2. Add a path prefix with the repository name because 11ty builds links using the root as the default, but GitHub Pages without a custom domain follow the format `account.github.io/repository-name/`.
+
+Example:
+
+``` js
+module.exports = function(eleventyConfig) {
+    return {
+        pathPrefix: "/11ty-website-example/",
+        dir: {
+            output: "docs"
+        }
+    }
+}
+```
+
+### Ignored Files
 
 The `.eleventyignore` works like other ignore files.  The `README.md` file is added here so that 11ty does not try to build the README into a page.
-
-### Styles
-
-The `_theme/_uswds-theme-custom-styles.scss` file is set up to import the `assets/css/styles.scss` file. If site styling becomes more complicated, you may want to expand the structure.
-
-## Design System
-
-This template uses the [USWDS](https://designsystem.digital.gov/).
-
-Install the USWDS source code package:
-
-``` bash
-npm install uswds --save-dev
-```
-
-Install USWDS compiler:
-
-``` bash
-npm install @uswds/compile --save-dev
-```
-
-Create `gulpfile.js` and add the compile settings:
-
-``` js
-const uswds = require('@uswds/compile');
-
-uswds.paths.dist.theme = './_theme';
-  
-exports.init = uswds.init;
-exports.compile = uswds.compile;
-exports.watch = uswds.watch;
-```
-
-Initialize the USWDS installation with gulp, copying the asset files out of the `node_modules` directory, combining them with your theme files, and then exporting them to the project directories specified in the gulpfile.
-
-``` bash
-npx gulp init
-```
-
-After the script runs, you should have new USWDS assets in an ./assets/uswds directory, theme files in a ./_theme directory, and compiled CSS in the ./assets/uswds/css directory.
-
-Create a `styles.scss` file in the `assets/css/` directory and import that file into `_theme/_uswds-theme-custom-styles.scss`:
-
-``` scss
-@import "../assets/css/styles.scss";
-```
-
-Use this file for customizations to the USWDS.  The gulpfile needs to point to it to watch for changes:
-
-``` js
-uswds.paths.src.projectSass = './assets/css';
-```
-
-To recompile the CSS every time there are changes to the project Sass, run:
-
-``` bash
-npx gulp watch
-```
-
-## Notes
 
 ### NPM Setup
 
@@ -142,6 +144,11 @@ Scripts can be chained together like this:
 "clean:build": "npm run clean && npm run build",
 "start": "npm run clean && npm run build && npm run serve"
 ```
+
+#### Fix for cross-platform `rm rf`
+
+We used the fix documented here:
+   - https://docgov.dev/posts/npm-scripts/
 
 Use the following command to get started:
 

@@ -1,38 +1,28 @@
+---
+siteTitle: "Is my bus line changing?"
+
+---
+
 <!DOCTYPE html>
 <html lang="en">
 
-{% include 'head' %}
+<head>
+	{% include 'head' %}
+	{% include 'tracking/head' %}
+</head>
 
 <body>
+	{% include 'tracking/body' %}
 	<div class="container-outer display-flex flex-column">
 		{% include 'header' %}
 
 		<div class="flex-1 display-flex flex-column">
 			{{ content }}
 		</div>
+		
 		{% include 'footer' %}
 	</div>
-
-	
-	{% for file in js-footer %}
-		<script src="{{ file | url }}"></script>
-	{% endfor %}
-
-	<!-- Google Translate -->
-	<script src="{{ '/js/translate.js' | url }}"></script>
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement({
-				pageLanguage: 'en',
-				includedLanguages: 'en,es,zh-CN,zh-TW,ko,vi,ja,ru,hy',
-				layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-				autoDisplay: false,
-				gaTrack: true,
-				gaId: 'UA-10002990-1',
-			}, 'google_translate_element');
-		}
-	</script>
-	<script type="text/javascript"
-	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&amp;ver=1.86"></script>
+	{% include 'tracking/footer' %}
 </body>
+
 </html>

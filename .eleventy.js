@@ -1,22 +1,29 @@
+
 const isProduction = process.env.NODE_ENV === "prod";
 
+console.log(process.env.NODE_ENV);
+
 module.exports = function(eleventyConfig) {
+	if (!isProduction) {
+		const brokenLinksPlugin = require("eleventy-plugin-broken-links");
+		eleventyConfig.addPlugin(brokenLinksPlugin,{
+			broken: "error"
+		});
+	};
 	eleventyConfig.addPassthroughCopy("src/css");
 	eleventyConfig.addPassthroughCopy("src/js");
 	eleventyConfig.addPassthroughCopy("src/img");
+	eleventyConfig.addPassthroughCopy("src/files");
 	eleventyConfig.addPassthroughCopy("assets/uswds");
-
-	// Uncomment if using a custom domain with GitHub Pages
-	// eleventyConfig.addPassthroughCopy("CNAME");
+	eleventyConfig.addPassthroughCopy("CNAME");
+	eleventyConfig.addPassthroughCopy("favicon.ico");
 
 	return {
-		// Use this pathPrefix if using a custom domain so that 
-		// Production builds generate links using the root:
-		// pathPrefix: isProduction ? "" : "/{repository-name}/",
-		pathPrefix: "/11ty-web-template/",
+		pathPrefix: isProduction ? "" : "/mybus-v3/",
 		dir: {
 			input: "src",
-			output: "docs"
+			output: "docs",
+			data: "data"
 		}
 	};
 };

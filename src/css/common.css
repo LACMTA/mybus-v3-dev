@@ -1,0 +1,206 @@
+html, body {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden; /*  HORRIBLE STOPGAP. Something is making the page show a horizontal scrollbar!  */
+    /* height: 100%; */ /* setting body and height to 100% prevents window.scrollTo from working */
+    line-height: 1.5rem;
+}
+
+#section-signup {
+    color: #FFF;
+}
+
+/************ Header ************/
+.mybus-header {
+    top: 0;
+    right: 0;
+    left: 0;
+    grid-column: 1 / span 3;
+}
+
+.header-container {
+    margin: 10px;
+}
+
+.nav-translate {
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+    height: 100%;
+}
+
+.nav-translate.nav-translate--mobile.nav-translate--is-open {
+    display: block;
+}
+
+.nav-translate svg {
+    margin-right: 10px;
+}
+
+.nav-translate__clickable .goog-te-gadget, .nav-translate__clickable .goog-te-gadget-simple, .nav-translate__clickable .l-footer__translate {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: block!important;
+}
+
+.nav-translate__clickable {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-translate__presentation {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.goog-te-menu-frame {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    top: 89px !important;
+}
+
+/************ Email Signup ************/
+#section-signup {
+    background: #000;
+}
+
+/************ One Page Layout *********/
+hr {
+    margin-bottom: 2rem;
+}
+
+.flex-gap {
+    gap: 1rem;
+}
+
+.chiclet-container {
+    box-sizing: border-box;
+}
+
+.chiclet-outer {
+    border: 1px solid #8B96A1;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 0;
+    min-width: 85px;
+
+}
+
+.chiclet-inner {
+    display: inline-block;
+    text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;
+    min-width: 68px;
+}
+
+.bus-standard {
+    background-color: #e1670f;
+    color: #fff;
+}
+
+.bus-j-line {
+    background-color: #ADB8BF;
+    color: #000;
+}
+
+.bus-g-line {
+    background-color: #FC4C02;
+    color: #fff;
+}
+
+.bus-l-line {
+    background-color: #FDB913;
+    color: #000;
+}
+
+.line-change-info {
+    border: 2px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.line-change-info__selected {
+    border: 4px solid #e1670f;
+}
+
+.line-update {
+    padding: 1rem 0;
+}
+
+.change-description {
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.schedule-link a, .map-link a {
+    color: #e1670f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+svg.usa-icon {
+    vertical-align: text-bottom;
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 40px;
+}
+
+h1 span.subtitle {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+h2.line-description {
+    font-size: 2rem;
+    padding-top: 0;
+    padding-bottom: 0.25rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 2rem;
+}
+
+/* USWDS Accordion Styling Changes */
+.map-accordion__button {
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    display: inline-block;
+    background-color: transparent;
+    color: #e1670f;
+    font-weight: 700;
+    margin: 0;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.map-accordion__content {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.main-image {
+    padding: 5rem 0;
+}
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+    .main-image {
+        display: none;
+    }
+}

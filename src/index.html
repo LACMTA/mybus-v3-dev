@@ -1,26 +1,200 @@
 ---
 layout: default
-title: "11ty web template"
+
+# Normal state between shakeups (starting one month after a shakeup):
+# - mode: 'email'
+# - message: 'Metro is relentlessly focused on making your bus system better. Get advanced notice of future improvements to your bus line.'
+#
+# When the shakeup date is known but no details are available yet:
+# - mode: 'email'
+# - message: 'Metro is making service changes to bus lines starting on Sunday, December 11, to provide riders with more reliable and predictable service. Get advanced notice of the upcoming improvements to your bus line.'
+#
+# Leading up to a shakeup when Takeone information is available on the site:
+# - mode: 'all'
+# - message: 'Metro is making service changes to bus lines starting on Sunday, October 23, to provide riders with more reliable and predictable service.'
+#
+# IF line/stop selections are made available:
+# - mode: 'select'
+# - message: 'Metro is making service changes to bus lines starting on Sunday, October 23, to provide riders with more reliable and predictable service.'
+#
+# Once the shakeup is live and for 1 month after:
+# - mode: 'all' or 'select'
+# - message: 'Metro has made service changes to bus lines on Sunday, October 23, to provide riders with more reliable and predictable service.'
+#
+# New page layout as of June 2023
+# - mode: 'one-page'
+# - message: 'The theme of our latest Metro bus and rail service update is reliability, reliability, reliability. 65 weekday, 43 Saturday, 42 Sunday bus schedules have been updated to improve reliability. B/D subway schedules will also be updated.'
+
+# modes: 'email', 'all', 'select'
+mode: 'one-page'
+message: 'The theme of our latest Metro bus and rail service update is reliability, reliability, reliability. 65 weekday, 43 Saturday, 42 Sunday bus schedules have been updated to improve reliability. B/D subway schedules will also be updated.'
+
+title: "Service Updates"
+subtitle: "Coming June 25, 2023"
+
 css: 
-  - '/assets/uswds/css/styles.css'
-  - 'css/site.css'
-js-head: 
-  - '/assets/uswds/js/uswds-init.min.js'
-js-footer:
-  - '/assets/uswds/js/uswds.min.js'
-  - 'js/site.js'
+- '/css/site.css'
+- '/css/index.css'
+- '/css/common.css'
+- '/css/activecampaign.css'
+
+js-head:
+- '/js/site.js'
+
 ---
 
-<div class="usa-section">
-	<div class="grid-container">
-	  	<div class="grid-row grid-gap">
-			<div class="">
-				<h1>{{ title }}</h1>
+<div class="usa-section section-select flex-1 display-flex flex-row flex-align-center padding-y-0">
+	<div class="div-container">
+		<div class="grid-row grid-gap">
+			<div class="desktop:grid-col-5">
+				<div class="select-content padding-5">
+					<h1>
+						{{ title }}<br>
+						<span class="subtitle">{{ subtitle }}</span>
+					</h1>
 
-				<p class="usa-intro">
-					Text here.
-				</p>
+					{% case mode %}
+						{% when 'one-page' %}
+							{% include 'index/one-page' %}
+						{% when 'all' %}
+							{% include 'index/all-changes' %}
+						{% when 'select' %}
+							{% include 'index/select-line' %}
+						{% else %}
+							{% include 'index/email-signup' %}
+					{% endcase %}
+
+				</div>
 			</div>
-	  	</div>
+			<div class="desktop:grid-col-7 main-image">
+				<img src="{{ '/img/articulated-buses-desktop.png' | url }}" alt="a photo of Metro buses">
+			</div>
+		</div>
+		{% case mode %}
+			{% when 'one-page' %}
+		<div class="grid-row grid-gap">
+			<div class="grid-col">
+				<div class="padding-5">
+					<h2>These bus lines have service updates:</h2>
+
+					<div class="grid-row flex-row flex-wrap flex-gap">
+						{% for line in lines %}
+						<div class="chiclet-container">
+							<div class="chiclet-outer">
+								{% case line.line %}
+									{% when 854 %}
+										<a class="chiclet-inner bus-l-line" href="#{{ 'line-' | append: line.line }}">
+									{% when 910, 950 %}
+										<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line.line }}">
+									{% when 901 %}
+										<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line.line }}">
+									{% else %}
+										<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line.line }}">
+								{% endcase %}
+									{{ line.line_label }}
+								</a>
+								
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% for line in lines %}
+		<div class="grid-row flex-row flex-gap" id="{{ 'line-' | append: line.line }}">
+			<div class="margin-left-5 margin-right-5 margin-top-5 grid-col line-change-info">
+				<div class="grid-row padding-3">
+					<div class="chiclet-container flex-auto">
+						<div class="chiclet-outer">
+							{% case line.line %}
+								{% when 854 %}
+									<span class="chiclet-inner bus-l-line">
+								{% when 910, 950 %}
+									<span class="chiclet-inner bus-j-line">
+								{% when 901 %}
+									<span class="chiclet-inner bus-g-line">
+								{% else %}
+									<span class="chiclet-inner bus-standard">
+							{% endcase %}
+								{{ line.line_label }}
+									</span>
+						</div>
+					</div>
+					<div class="grid-col change-description">
+						<h2 class="line-description">{{ line.description }}</h2>
+						{% if line.schedule != null %}
+						<span class="schedule-link">
+							<a href="{{ '/files/schedules/' | append: line.schedule | url }}">New schedule 
+								<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+									<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
+								</svg>
+							</a>
+						</span>
+						{% endif %}
+						{% for change in changes %}
+							{% if line.line == change.line %}
+								<div class="line-update">
+									<strong>Update:</strong> {{ change.update }}<br>
+									<strong>Reason:</strong> {{ change.reason }}
+									{% if change.map != null %}
+									{%- comment -%} <div class="usa-accordion">
+										<h4 class="usa-accordion__heading">
+											<button type="button" class="usa-accordion__button" aria-expanded="false" aria-controls="{{ line.line | append: '-map' }}">See Map <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+												<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+											</svg></button>
+										</h4>
+										<div id="{{ line.line | append: '-map' }}" class="usa-accordion__content">
+											<img src="#">stuff
+										</div>
+									</div> {%- endcomment -%}
+									<div class="map-accordion__heading">
+										<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
+											See Map 
+											<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+												<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+											</svg>
+										</a>
+									</div>
+									<div id="{{ 'map-' | append: line.line }}" class="map-accordion__content">
+										<img src="{{ '/img/' | append: change.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
+									</div>
+									{% endif %}
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		{% endcase %}
 	</div>
 </div>
+
+<!-- <section id="section-select">
+	<img class="img-fluid d-lg-none" width="100%" src="{{ '/img/articulated-buses-mobile.png' | url }}" alt="photo of Metro buses" />
+	<div class="container">
+		<div class="row py-5">
+			<div class="col-lg-5">
+				<div class="select-wrapper">
+					<div class="select-content">
+						<h1 class="pt-lg-5 pb-lg-3 px-lg-5">Is my bus line changing?</h1>
+
+						{% case mode %}
+							{% when 'all' %}
+								{% include 'index/all-changes' %}
+							{% when 'select' %}
+								{% include 'index/select-line' %}
+							{% else %}
+								{% include 'index/email-signup' %}
+						{% endcase %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> -->
