@@ -1,0 +1,151 @@
+---
+layout: default
+
+css: 
+- '/css/site.css'
+- '/css/index.css'
+- '/css/common.css'
+- '/css/activecampaign.css'
+
+js-head:
+- '/js/site.js'
+
+mode: 'one-page'
+message: 'The theme of our latest Metro bus and rail service update is reliability, reliability, reliability. 65 weekday, 43 Saturday, 42 Sunday bus schedules have been updated to improve reliability. B/D subway schedules will also be updated.'
+
+title: "Service Updates"
+subtitle: "Coming June 25, 2023"
+---
+
+{% if page.lang == 'en' %}
+  {% assign source = en_content %}
+  {% assign updates = en-updates %}
+{% elsif page.lang == 'es' %}
+  {% assign source = es_content %}
+  {% assign updates = es-updates %}
+{% elsif page.lang == 'ja' %}
+  {% assign source = ja_content %}
+{% endif %}
+
+<div class="usa-section section-select flex-1 display-flex flex-row flex-align-center padding-y-0">
+	<div class="div-container">
+		<div class="grid-row grid-gap">
+			<div class="desktop:grid-col-5">
+				<div class="select-content padding-5">
+					<h1>
+						{{ title }}<br>
+						<span class="subtitle">{{ subtitle }}</span>
+					</h1>
+
+					{% case mode %}
+						{% when 'one-page' %}
+							{% include 'index/one-page' %}
+						{% when 'all' %}
+							{% include 'index/all-changes' %}
+						{% when 'select' %}
+							{% include 'index/select-line' %}
+						{% else %}
+							{% include 'index/email-signup' %}
+					{% endcase %}
+
+				</div>
+			</div>
+			<div class="desktop:grid-col-7 main-image">
+				<img src="{{ '/img/articulated-buses-desktop.png' | url }}" alt="a photo of Metro buses">
+			</div>
+		</div>
+		{% case mode %}
+			{% when 'one-page' %}
+		<div class="grid-row grid-gap">
+			<div class="grid-col">
+				<div class="padding-5">
+					<h2>These bus lines have service updates:</h2>
+
+					<div class="grid-row flex-row flex-wrap flex-gap">
+						{% for line in lines %}
+						<div class="chiclet-container">
+							<div class="chiclet-outer">
+								{% case line.line %}
+									{% when 854 %}
+										<a class="chiclet-inner bus-l-line" href="#{{ 'line-' | append: line.line }}">
+									{% when 910, 950 %}
+										<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line.line }}">
+									{% when 901 %}
+										<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line.line }}">
+									{% else %}
+										<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line.line }}">
+								{% endcase %}
+									{{ line.line_label }}
+								</a>
+								
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% for line in lines %}
+		<div class="grid-row flex-row flex-gap" id="{{ 'line-' | append: line.line }}">
+			<div class="margin-left-5 margin-right-5 margin-top-5 grid-col line-change-info">
+				<div class="grid-row padding-3">
+					<div class="chiclet-container flex-auto">
+						<div class="chiclet-outer">
+							{% case line.line %}
+								{% when 854 %}
+									<span class="chiclet-inner bus-l-line">
+								{% when 910, 950 %}
+									<span class="chiclet-inner bus-j-line">
+								{% when 901 %}
+									<span class="chiclet-inner bus-g-line">
+								{% else %}
+									<span class="chiclet-inner bus-standard">
+							{% endcase %}
+								{{ line.line_label }}
+									</span>
+						</div>
+					</div>
+					<div class="grid-col change-description">
+						<h2 class="line-description">{{ line.description }}</h2>
+						{% if line.schedule != null %}
+						<span class="schedule-link">
+							<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">New schedule 
+								<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+									<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
+								</svg>
+							</a>
+						</span>
+						{% endif %}
+
+            {% assign updateList = updates.updates[line.line] %}
+            {% if updateList != null %}
+              {% for updateItem in updateList %}
+                <div class="line-update">
+                  <strong>Update:</strong> {{ updateItem.update }}<br>
+                  <strong>Reason:</strong> {{ updateItem.reason }}
+                  {% if updateItem.map != '' %}
+                    <div class="map-accordion__heading">
+                      <button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
+                        See Map 
+                        <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+                          <use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+                        </svg>
+                      </a>
+                    </div>
+                    <div id="{{ 'map-' | append: line.line }}" class="map-accordion__content">
+                      <img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
+                    </div>
+									{% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		{% endcase %}
+	</div>
+</div>
