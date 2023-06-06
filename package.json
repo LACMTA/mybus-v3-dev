@@ -13,16 +13,19 @@
     "clean:build": "npm run clean && npm run build",
     "serve": "npx @11ty/eleventy --serve",
     "debug": "DEBUG=* npx @11ty/eleventy --serve",
-    "clean:serve": "npm run clean && npm run serve"
+    "clean:serve": "npm run clean && npm run serve",
+    "process-data": "node process-data.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LACMTA/mybus-v2.git"
   },
   "dependencies": {
+    "@11ty/eleventy": "^2.0.0-canary.14",
     "@uswds/compile": "^1.0.0",
     "@uswds/uswds": "^3.4.1",
     "eleventy-plugin-broken-links": "^2.0.3",
+    "papaparse": "^5.4.1",
     "uswds": "^2.13.3"
   }
 }

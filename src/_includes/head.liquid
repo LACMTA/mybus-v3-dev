@@ -15,12 +15,13 @@
 
 
 {% for file in js-head %}
-<script src="{{ file | url }}"></script>
+  <script src="{{ file | url }}"></script>
 {% endfor %}
 
 <!-- <link href="{{ '/css/common.css' | url}}" rel="stylesheet">
 <link href="{{ '/css/index.css' | url}}" rel="stylesheet">
-<link href="{{ '/css/activecampaign.css' | url}}" rel="stylesheet"> --><!-- <script src="https://lacmta.github.io/design-system/dist/js/uswds-init.min.js"></script> -->
+<link href="{{ '/css/activecampaign.css' | url}}" rel="stylesheet"> -->
+<!-- <script src="https://lacmta.github.io/design-system/dist/js/uswds-init.min.js"></script> -->
 
 <title>{{ siteTitle }}
 </title>

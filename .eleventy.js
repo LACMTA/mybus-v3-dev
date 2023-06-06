@@ -1,4 +1,4 @@
-
+const { EleventyI18nPlugin } = require("@11ty/eleventy");
 const isProduction = process.env.NODE_ENV === "prod";
 
 console.log(process.env.NODE_ENV);
@@ -18,14 +18,14 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("CNAME");
 	eleventyConfig.addPassthroughCopy("favicon.ico");
 
-	// eleventyConfig.addPlugin(EleventyI18nPlugin, {
-	// 	defaultLanguage: "en",
-	// 	filters: {
-	// 		url: "locale_url",
-	// 		links: "locale_links"
-	// 	},
-	// 	errorMode: "strict"
-	// });
+	eleventyConfig.addPlugin(EleventyI18nPlugin, {
+		defaultLanguage: "en",
+		filters: {
+			url: "locale_url",
+			links: "locale_links"
+		},
+		errorMode: "strict"
+	});
 
 	return {
 		pathPrefix: isProduction ? "" : "/mybus-v3/",
