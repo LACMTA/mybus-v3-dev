@@ -2,7 +2,7 @@ console.log("running process-data.js");
 
 const fs = require ('fs');
 const papa = require('papaparse');
-const INPUT_FILE = 'src/_data/june-2023-translated.csv';
+const INPUT_FILE = 'src/_data/june-2023-reviewed.csv';
 const OUTPUT_PATH = 'src/data/';
 const file = fs.createReadStream(INPUT_FILE);
 let count = 0;
@@ -51,7 +51,7 @@ papa.parse(file, {
         try {
             results.data.forEach(function(item) {
                 let line = item.line;
-                
+
                 if (!translation_results.lines.includes(line)) {
                     translation_results.lines.push(line);
                     langs.forEach(function(lang) {

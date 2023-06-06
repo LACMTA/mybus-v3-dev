@@ -19,40 +19,33 @@ subtitle: "Coming June 25, 2023"
 
 {% case page.lang %}
 {% when 'en' %}
+	{% assign source = en_content %}
+	{% assign updates = en-updates %}
 {% when 'es' %}
+	{% assign source = es_content %}
+	{% assign updates = es-updates %}
 {% when 'hy' %}
-{% when 'ko' %}
-{% when 'ro' %}
-{% when 'vi' %}
-{% when 'zh-tw' %}
+	{% assign source = hy_content %}
+	{% assign updates = hy-updates %}
 {% when 'ja' %}
+	{% assign source = ja_content %}
+	{% assign updates = ja-updates %}
+{% when 'ko' %}
+	{% assign source = ko_content %}
+	{% assign updates = ko-updates %}
+{% when 'ru' %}
+	{% assign source = ru_content %}
+	{% assign updates = ru-updates %}
+{% when 'vi' %}
+	{% assign source = vi_content %}
+	{% assign updates = vi-updates %}
+{% when 'zh-tw' %}
+	{% assign source = zh-tw_content %}
+	{% assign updates = zh-tw-updates %}
+{% else %}
+	{% assign source = en_content %}
+	{% assign updates = en-updates %}
 {% endcase %}
-
-{% if page.lang == 'en' %}
-  {% assign source = en_content %}
-  {% assign updates = en-updates %}
-{% elsif page.lang == 'es' %}
-  {% assign source = es_content %}
-  {% assign updates = es-updates %}
-{% elsif page.lang == 'hy' %}
-  {% assign source = hy_content %}
-  {% assign updates = hy-updates %}
-{% elsif page.lang == 'ko' %}
-  {% assign source = ko_content %}
-  {% assign updates = ko-updates %}
-{% elsif page.lang == 'ru' %}
-  {% assign source = ru_content %}
-  {% assign updates = ru-updates %}
-{% elsif page.lang == 'vi' %}
-  {% assign source = vi_content %}
-  {% assign updates = vi-updates %}
-{% elsif page.lang == 'zh-tw' %}
-  {% assign source = zh-tw_content %}
-  {% assign updates = zh-tw-updates %}
-{% elsif page.lang == 'ja' %}
-  {% assign source = ja_content %}
-  {% assign updates = ja-updates %}
-{% endif %}
 
 <div class="usa-section section-select flex-1 display-flex flex-row flex-align-center padding-y-0">
 	<div class="div-container">
