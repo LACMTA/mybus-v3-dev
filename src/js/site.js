@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#optionsTakeone').addEventListener('change', function(e) {
+        window.open(e.currentTarget.value);
+    });
+
     let allMaps = document.querySelectorAll('.map-accordion__content');
     allMaps.forEach(function(x) {
         x.setAttribute('hidden', '');

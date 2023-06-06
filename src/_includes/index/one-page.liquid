@@ -1,33 +1,12 @@
 <p>
   {{ message }}
 </p>
-<p>
-  Download a PDF summary of the latest service updates in the following languages:
-  <ul>
-    <li>
-      <a href="#">English</a>
-    </li>
-    <li>
-      <a href="#">Spanish</a>
-    </li>
-    <li>
-      <a href="#">Chinese</a>
-      (traditional)
-    </li>
-    <li>
-      <a href="#">Armenian</a>
-    </li>
-    <li>
-      <a href="#">Korean</a>
-    </li>
-    <li>
-      <a href="#">Japanese</a>
-    </li>
-    <li>
-      <a href="#">Russian</a>
-    </li>
-    <li>
-      <a href="#">Vietnamese</a>
-    </li>
-  </ul>
-</p>
+<form class="usa-form">
+  <label class="usa-label" for="optionsTakeone">Download a PDF summary of the latest service updates in the following languages:</label>
+  <select class="usa-select" name="options" id="optionsTakeone">
+    <option value>- Select -</option>
+    {% for lang in langs.langList %}
+      <option value="{{ langs[lang].takeone }}">{{ langs[lang].label }}</option>
+    {% endfor %}
+  </select>
+</form>
