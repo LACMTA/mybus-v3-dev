@@ -19,31 +19,31 @@ subtitle: "Coming June 25, 2023"
 
 {% case page.lang %}
 {% when 'en' %}
-	{% assign source = en_content %}
+	{% assign content = en_content %}
 	{% assign updates = en-updates %}
 {% when 'es' %}
-	{% assign source = es_content %}
+	{% assign content = es_content %}
 	{% assign updates = es-updates %}
 {% when 'hy' %}
-	{% assign source = hy_content %}
+	{% assign content = hy_content %}
 	{% assign updates = hy-updates %}
 {% when 'ja' %}
-	{% assign source = ja_content %}
+	{% assign content = ja_content %}
 	{% assign updates = ja-updates %}
 {% when 'ko' %}
-	{% assign source = ko_content %}
+	{% assign content = ko_content %}
 	{% assign updates = ko-updates %}
 {% when 'ru' %}
-	{% assign source = ru_content %}
+	{% assign content = ru_content %}
 	{% assign updates = ru-updates %}
 {% when 'vi' %}
-	{% assign source = vi_content %}
+	{% assign content = vi_content %}
 	{% assign updates = vi-updates %}
 {% when 'zh-tw' %}
-	{% assign source = zh-tw_content %}
+	{% assign content = zh-tw_content %}
 	{% assign updates = zh-tw-updates %}
 {% else %}
-	{% assign source = en_content %}
+	{% assign content = en_content %}
 	{% assign updates = en-updates %}
 {% endcase %}
 
