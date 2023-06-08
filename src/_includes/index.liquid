@@ -19,32 +19,23 @@ subtitle: "Coming June 25, 2023"
 
 {% case page.lang %}
 {% when 'en' %}
-	{% assign content = en_content %}
-	{% assign updates = en-updates %}
+	{% assign content = en-content %}
 {% when 'es' %}
-	{% assign content = es_content %}
-	{% assign updates = es-updates %}
+	{% assign content = es-content %}
 {% when 'hy' %}
-	{% assign content = hy_content %}
-	{% assign updates = hy-updates %}
+	{% assign content = hy-content %}
 {% when 'ja' %}
-	{% assign content = ja_content %}
-	{% assign updates = ja-updates %}
+	{% assign content = ja-content %}
 {% when 'ko' %}
-	{% assign content = ko_content %}
-	{% assign updates = ko-updates %}
+	{% assign content = ko-content %}
 {% when 'ru' %}
-	{% assign content = ru_content %}
-	{% assign updates = ru-updates %}
+	{% assign content = ru-content %}
 {% when 'vi' %}
-	{% assign content = vi_content %}
-	{% assign updates = vi-updates %}
+	{% assign content = vi-content %}
 {% when 'zh-tw' %}
-	{% assign content = zh-tw_content %}
-	{% assign updates = zh-tw-updates %}
+	{% assign content = zh-tw-content %}
 {% else %}
-	{% assign content = en_content %}
-	{% assign updates = en-updates %}
+	{% assign content = en-content %}
 {% endcase %}
 
 <div class="usa-section section-select flex-1 display-flex flex-row flex-align-center padding-y-0">
@@ -53,8 +44,8 @@ subtitle: "Coming June 25, 2023"
 			<div class="desktop:grid-col-5">
 				<div class="select-content padding-5">
 					<h1>
-						{{ updates.content.pageTitle }}<br>
-						<span class="subtitle">{{ page.content.Subtitle }}</span>
+						{{ content.page.pageTitle }}<br>
+						<span class="subtitle">{{ content.page.pageSubtitle }}</span>
 					</h1>
 
 					{%- comment -%} {% case mode %}
@@ -69,10 +60,10 @@ subtitle: "Coming June 25, 2023"
 					{% endcase %} {%- endcomment -%}
 
 					<p>
-						{{ updates.content.introP1 }}
+						{{ content.page.introP1 }}
 					  </p>
 					  <p>
-						{{ updates.content.introP2 }}
+						{{ content.page.introP2 }}
 					  </p>
 					  <form class="usa-form" id="downloadTakeone">
 						<label class="usa-label" for="optionsTakeone" ></label>
@@ -82,7 +73,7 @@ subtitle: "Coming June 25, 2023"
 							<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
 						  {% endfor %}
 						</select>
-						<button type="submit" class="usa-button">{{ updates.content.download }}</button>
+						<button type="submit" class="usa-button">{{ content.page.download }}</button>
 					  </form>
 
 				</div>
@@ -96,7 +87,7 @@ subtitle: "Coming June 25, 2023"
 			<div class="grid-row grid-gap">
 				<div class="grid-col">
 					<div class="padding-5">
-						<h2>These bus lines have service updates:</h2>
+						<h2>{{ content.page.lineListTitle }}</h2>
 
 						<div class="grid-row flex-row flex-wrap flex-gap">
 							{% for line in lines %}
@@ -147,7 +138,7 @@ subtitle: "Coming June 25, 2023"
 								<h2 class="line-description">{{ line.description }}</h2>
 								{% if line.schedule != null %}
 								<span class="schedule-link">
-									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">New schedule 
+									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">{{ content.page.schedule }} 
 										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 											<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
 										</svg>
@@ -155,17 +146,17 @@ subtitle: "Coming June 25, 2023"
 								</span>
 								{% endif %}
 								
-								{% assign updateList = updates.updates[line.line] %}
+								{% assign updateList = content.updates[line.line] %}
 								{% if updateList != null %}
 									{% for updateItem in updateList %}
 										<div class="line-update">
-											<strong>Update:</strong> {{ updateItem.update }}<br>
-											<strong>Reason:</strong> {{ updateItem.reason }}
+											<strong>{{ content.page.update }}</strong> {{ updateItem.update }}<br>
+											<strong>{{ content.page.reason }}</strong> {{ updateItem.reason }}
 											
 											{% if updateItem.map != '' %}
 												<div class="map-accordion__heading">
 													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
-														See Map 
+														{{ content.page.map }} 
 														<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 														<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
 														</svg>
