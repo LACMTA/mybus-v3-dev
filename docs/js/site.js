@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('#optionsTakeone').addEventListener('change', function(e) {
-        window.open(e.currentTarget.value);
+    let form = document.querySelector('#downloadTakeone');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+       const form = e.target;
+       window.open(form.elements['options'].value);
     });
+
+    // document.querySelector('#optionsTakeone').addEventListener('change', function(e) {
+    //     window.open(e.currentTarget.value);
+    // });
 
     let allMaps = document.querySelectorAll('.map-accordion__content');
     allMaps.forEach(function(x) {
