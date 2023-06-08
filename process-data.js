@@ -14,42 +14,42 @@ let translation_results = {
     'lines': [],
     'en': {
         'lang': 'en',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'es': {
         'lang': 'es',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'hy': {
         'lang': 'hy',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'ja': {
         'lang': 'ja',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'ko': {
         'lang': 'ko',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'ru': {
         'lang': 'ru',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'vi': {
         'lang': 'vi',
-        'content': {},
+        'page': {},
         'updates': {}
     },
     'zh-tw': {
         'lang': 'zh-tw',
-        'content': {},
+        'page': {},
         'updates': {}
     }
 };
@@ -89,14 +89,14 @@ papa.parse(rs_updates_file, {
 
                             langs.forEach(function(lang){
                                 let content = {};
-                                translation_results[lang].content[item.field] = item[lang + '-content'];
+                                translation_results[lang].page[item.field] = item[lang + '-content'];
                             });
 
                         });
 
                         langs.forEach(function(lang) {
                             let jsonOutput = JSON.stringify(translation_results[lang]);
-                            let fileName = lang + '-updates.json';
+                            let fileName = lang + '-content.json';
                             fs.writeFile(OUTPUT_PATH + fileName, jsonOutput, err => {
                                 if (err) {
                                     console.log('Error writing file: ', err);

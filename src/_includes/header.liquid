@@ -17,10 +17,16 @@
 					</button>
 					
 					<ul id="language-options" class="usa-language__submenu" hidden="true">
+						{% assign links = page.url | locale_links %}
 						{% for lang in langs.langList %}
-							<li class="usa-language__submenu-item">
-							<a href=""><span>{{ langs[lang].label }}</span></a>
-							</li>
+							{% for link in links %}
+								{% if link.lang == lang %}
+								<li class="usa-language__submenu-item">
+								<a href="{{ link.url | url }}"><span>{{ langs[lang].label }}</span></a>
+								</li>
+								{% endif %}
+							{% endfor %}
+							
 						{% endfor %}
 {%- comment -%} 
 					  <li class="usa-language__submenu-item">
