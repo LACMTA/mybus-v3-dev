@@ -1,12 +1,17 @@
 <p>
   {{ message }}
 </p>
+<p>
+  Download a PDF summary of the latest service updates in the following languages:
+</p>
 <form class="usa-form">
-  <label class="usa-label" for="optionsTakeone">Download a PDF summary of the latest service updates in the following languages:</label>
+  <label class="usa-label" for="optionsTakeone" ></label>
   <select class="usa-select" name="options" id="optionsTakeone">
     <option value>- Select -</option>
     {% for lang in langs.langList %}
       <option value="{{ langs[lang].takeone }}">{{ langs[lang].label }}</option>
     {% endfor %}
   </select>
+  <button type="submit" class="usa-button">Download</button>
 </form>
+
