@@ -14,7 +14,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/js");
 	eleventyConfig.addPassthroughCopy("src/img");
 	eleventyConfig.addPassthroughCopy("src/files");
-	eleventyConfig.addPassthroughCopy("assets/uswds");
+	eleventyConfig.addPassthroughCopy("assets");
 	eleventyConfig.addPassthroughCopy("CNAME");
 	eleventyConfig.addPassthroughCopy("favicon.ico");
 

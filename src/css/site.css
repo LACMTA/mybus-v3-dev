@@ -23,10 +23,8 @@ body {
 
 .nav-container {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    padding-left: 2rem;
-    padding-right: 2rem;
 }
 
 .logo {
@@ -34,14 +32,20 @@ body {
     margin-bottom: 1rem;
     font-size: 1.46rem;
     line-height: 1.1;
+    padding: 0 2rem;
 }
 
 .navbar {
-    position: relative;
-    width: 33%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     border-bottom: none;
-    display: inline-block;
     height: auto;
+}
+
+.usa-language-container {
+  padding-right: 2rem;
 }
 
 .translate-button {
