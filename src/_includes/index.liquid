@@ -84,7 +84,7 @@ subtitle: "Coming June 25, 2023"
 		</div>
 		{% case mode %}
 			{% when 'one-page' %}
-			<div class="grid-row grid-gap">
+			<div class="grid-row grid-gap" id="chiclet-links">
 				<div class="grid-col">
 					<div class="padding-5">
 						<h2>{{ content.page.lineListTitle }}</h2>
@@ -169,7 +169,9 @@ subtitle: "Coming June 25, 2023"
 										</div>
 									{% endfor %}
 								{% endif %}
-								<span>Back to top</span>
+								<div style="text-align: right;">
+									<a href="#chiclet-links">Back to top</a>
+								</div>
 							</div>
 						</div>
 					</div>
