@@ -2,8 +2,8 @@ console.log("running process-data.js");
 
 const fs = require ('fs');
 const papa = require('papaparse');
-const UPDATES_FILE = 'src/_data/june-2023-translated-final.csv';
-const CONTENT_FILE = 'src/_data/june-2023-content.csv';
+const UPDATES_FILE = 'src/_data/updates.csv';
+const CONTENT_FILE = 'src/_data/content.csv';
 const OUTPUT_PATH = 'src/data/';
 const rs_updates_file = fs.createReadStream(UPDATES_FILE);
 const rs_content_file = fs.createReadStream(CONTENT_FILE);
