@@ -1,12 +1,30 @@
-console.log("running process-data.js");
+console.log("Running process-data.js\n");
 
 const fs = require ('fs');
 const papa = require('papaparse');
 const UPDATES_FILE = 'src/_data/updates.csv';
 const CONTENT_FILE = 'src/_data/content.csv';
 const OUTPUT_PATH = 'src/data/';
-const rs_updates_file = fs.createReadStream(UPDATES_FILE);
-const rs_content_file = fs.createReadStream(CONTENT_FILE);
+let rs_updates_file;
+let rs_content_file;
+
+try {
+    rs_updates_file = fs.createReadStream(UPDATES_FILE);
+    console.log('Read file:', UPDATES_FILE);
+} catch (e) {
+    console.log('Error reading file:', UPDATES_FILE);
+    console.log(e);
+}
+
+try {
+    rs_content_file = fs.createReadStream(CONTENT_FILE);
+    console.log('Read file:', CONTENT_FILE);
+} catch (e) {
+    console.log('Error reading file:', CONTENT_FILE);
+    console.log(e);
+}
+
+console.log('')
 
 let count = 0;
 const langs = ['en', 'es', 'hy', 'ja', 'ko', 'ru', 'vi', 'zh-tw'];
@@ -59,6 +77,9 @@ papa.parse(rs_updates_file, {
     worker: true,
     encoding: 'utf-8',
     complete: function(results) {
+        console.log("Successfully read file:", UPDATES_FILE);
+        console.log("");
+
         try {
             results.data.forEach(function(item) {
                 let line = item.line;
@@ -84,6 +105,8 @@ papa.parse(rs_updates_file, {
                 worker: true,
                 encoding: 'utf-8',
                 complete: function(results) {
+                    console.log("Successfully read file:", CONTENT_FILE);
+                    console.log("");
                     try {
                         results.data.forEach(function(item) {
 
@@ -99,20 +122,22 @@ papa.parse(rs_updates_file, {
                             let fileName = lang + '-content.json';
                             fs.writeFile(OUTPUT_PATH + fileName, jsonOutput, err => {
                                 if (err) {
-                                    console.log('Error writing file: ', err);
+                                    console.log('Error writing file:', err);
                                 } else {
-                                    console.log('Successfully wrote file: ', fileName);
+                                    console.log('Successfully wrote file:', fileName);
                                 }
                             })
                         });
 
                     } catch (err) {
-                        console.log ('Error: ', err);
+                        console.log("Error parsing:", CONTENT_FILE)
+                        console.log ('Error message:', err);
                     }
                 }
             });
         } catch (err) {
-            console.log ('Error: ', err);
+            console.log("Error parsing:", UPDATES_FILE)
+            console.log ('Error message:', err);
         }
     }
 });
