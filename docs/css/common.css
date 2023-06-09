@@ -75,6 +75,10 @@ hr {
     margin-bottom: 2rem;
 }
 
+.div-container  {
+    width: 100%;
+}
+
 .flex-gap {
     gap: 1rem;
 }
