@@ -14,7 +14,7 @@
     "serve": "npx @11ty/eleventy --serve",
     "debug": "DEBUG=* npx @11ty/eleventy --serve",
     "clean:serve": "npm run clean && npm run serve",
-    "process-data": "node process-data.js"
+    "process-data": "python3 process-data.py && node process-data.js"
   },
   "repository": {
     "type": "git",
