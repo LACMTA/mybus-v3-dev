@@ -94,8 +94,14 @@ subtitle: "Coming June 25, 2023"
 								<div class="chiclet-container">
 									<div class="chiclet-outer">
 										{% case line.line %}
+											{% when 802 %}
+												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 807 %}
+												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 854 %}
-												<a class="chiclet-inner bus-l-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner l-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 857 %}
+												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 910, 950 %}
 												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 901 %}
@@ -121,8 +127,14 @@ subtitle: "Coming June 25, 2023"
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line.line %}
+										{% when 802 %}
+											<span class="chiclet-inner a-line">
+										{% when 807 %}
+											<span class="chiclet-inner k-line">
 										{% when 854 %}
-											<span class="chiclet-inner bus-l-line">
+											<span class="chiclet-inner l-line">
+										{% when 857 %}
+											<span class="chiclet-inner k-line">
 										{% when 910, 950 %}
 											<span class="chiclet-inner bus-j-line">
 										{% when 901 %}
@@ -130,8 +142,8 @@ subtitle: "Coming June 25, 2023"
 										{% else %}
 											<span class="chiclet-inner bus-standard">
 									{% endcase %}
-										{{ line.line_label }}
-											</span>
+									{{ line.line_label }}
+									</span>
 								</div>
 							</div>
 							<div class="grid-col change-description">
