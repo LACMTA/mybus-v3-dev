@@ -1,4 +1,5 @@
 <!---------------------- START HEADER ---------------------->
+
 <header class="usa-header usa-header--basic">
 	<div class="nav-container">
 		<div class="navbar">
@@ -9,25 +10,25 @@
 			{%- comment -%} <button type="button" class="usa-menu-btn">Menu</button> {%- endcomment -%}
 		</div>
 		<div class="usa-language-container usa-language--small">
-				<ul class="usa-language__primary usa-accordion">
-				  <li class="usa-language__primary-item">
-					<button class="usa-button usa-language__link" role="button" aria-expanded="false"
-					  aria-controls="language-options">
-					  Languages
-					</button>
-					
-					<ul id="language-options" class="usa-language__submenu" hidden="true">
-						{% assign links = page.url | locale_links %}
-						{% for lang in langs.langList %}
-							{% for link in links %}
-								{% if link.lang == lang %}
-								<li class="usa-language__submenu-item">
-								<a href="{{ link.url | url }}"><span>{{ langs[lang].label }}</span></a>
-								</li>
-								{% endif %}
-							{% endfor %}
-							
+			<ul class="usa-language__primary usa-accordion">
+				<li class="usa-language__primary-item">
+				<button class="usa-button usa-language__link" role="button" aria-expanded="false"
+					aria-controls="language-options">
+					{{ pageContent.page.translate }}
+				</button>
+				
+				<ul id="language-options" class="usa-language__submenu" hidden="true">
+					{% assign links = page.url | locale_links %}
+					{% for lang in langs.langList %}
+						{% for link in links %}
+							{% if link.lang == lang %}
+							<li class="usa-language__submenu-item">
+							<a href="{{ link.url | url }}"><span>{{ langs[lang].label }}</span></a>
+							</li>
+							{% endif %}
 						{% endfor %}
+						
+					{% endfor %}
 {%- comment -%} 
 					  <li class="usa-language__submenu-item">
 						<a href="javascript:void()" title="العربية | Arabic"><span lang="ar"
