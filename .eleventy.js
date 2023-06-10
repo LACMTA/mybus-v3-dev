@@ -27,13 +27,8 @@ module.exports = function(eleventyConfig) {
 		errorMode: "strict"
 	});
 
-/* 		
-Use this once the site is switched over to mybus.metro.net:
-pathPrefix: isProduction ? "" : "/mybus-v3/",
-*/
-
 	return {
-		pathPrefix: "/mybus-v3/",
+		pathPrefix: isProduction ? "" : "/mybus-v3/",
 		dir: {
 			input: "src",
 			output: "docs",
