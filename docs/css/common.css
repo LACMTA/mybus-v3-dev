@@ -75,6 +75,10 @@ hr {
     margin-bottom: 2rem;
 }
 
+.div-container  {
+    width: 100%;
+}
+
 .flex-gap {
     gap: 1rem;
 }
@@ -118,7 +122,17 @@ hr {
     color: #fff;
 }
 
-.bus-l-line {
+.a-line {
+    background-color: #0072BC;
+    color: #fff;
+}
+
+.k-line {
+    background-color: #E56DB1;
+    color: #000;
+}
+
+.l-line {
     background-color: #FDB913;
     color: #000;
 }

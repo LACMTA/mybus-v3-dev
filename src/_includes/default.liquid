@@ -1,7 +1,29 @@
 ---
 siteTitle: "Is my bus line changing?"
-
 ---
+
+{% case page.lang %}
+	{% when 'en' %}
+		{% assign pageContent = en-content %}
+	{% when 'es' %}
+		{% assign pageContent = es-content %}
+	{% when 'hy' %}
+		{% assign pageContent = hy-content %}
+	{% when 'ja' %}
+		{% assign pageContent = ja-content %}
+	{% when 'ko' %}
+		{% assign pageContent = ko-content %}
+	{% when 'ru' %}
+		{% assign pageContent = ru-content %}
+	{% when 'vi' %}
+		{% assign pageContent = vi-content %}
+	{% when 'zh-tw' %}
+		{% assign pageContent = zh-tw-content %}
+	{% else %}
+		{% assign pageContent = en-content %}
+{% endcase %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +35,13 @@ siteTitle: "Is my bus line changing?"
 <body>
 	{% include 'tracking/body' %}
 	<div class="container-outer display-flex flex-column">
-		{% include 'header' %}
+		{% include 'header', pageContent: pageContent %}
 
-		<div class="flex-1 display-flex flex-column">
+		<div class="flex-1 display-flex flex-column" >
 			{{ content }}
 		</div>
 		
-		{% include 'footer' %}
+		{% include 'footer', pageContent: pageContent %}
 	</div>
 	{% include 'tracking/footer' %}
 </body>
