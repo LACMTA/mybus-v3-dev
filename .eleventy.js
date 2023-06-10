@@ -27,11 +27,8 @@ module.exports = function(eleventyConfig) {
 		errorMode: "strict"
 	});
 
-/* 		pathPrefix: isProduction ? "" : "/mybus-v3/",
-*/
-
 	return {
-		pathPrefix: "/mybus-v3/",
+		pathPrefix: isProduction ? "" : "/mybus-v3/",
 		dir: {
 			input: "src",
 			output: "docs",
