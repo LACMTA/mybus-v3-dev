@@ -68,7 +68,7 @@ subtitle: "Coming June 25, 2023"
 					  <form class="usa-form" id="downloadTakeone">
 						<label class="usa-label" for="optionsTakeone" ></label>
 						<select class="usa-select" name="options" id="optionsTakeone">
-						  <option value>- Select -</option>
+						  <option value>- Select Language -</option>
 						  {% for lang in langs.langList %}
 							<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
 						  {% endfor %}
@@ -86,8 +86,8 @@ subtitle: "Coming June 25, 2023"
 			{% when 'one-page' %}
 			<div class="grid-row grid-gap" id="chiclet-links">
 				<div class="grid-col">
-					<div class="padding-5">
-						<h2>{{ pageContent.page.lineListTitle }}</h2>
+					<div class="padding-x-5 padding-y-2">
+						<h2 style="margin-top-0">{{ pageContent.page.lineListTitle }}</h2>
 
 						<div class="grid-row flex-row flex-wrap flex-gap">
 							{% for line in lines %}
