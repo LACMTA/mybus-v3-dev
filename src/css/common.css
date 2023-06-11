@@ -93,7 +93,7 @@ hr {
     padding: 0.5rem;
     margin: 0;
     min-width: 85px;
-
+    display: inline-block;
 }
 
 .chiclet-inner {
@@ -152,7 +152,7 @@ hr {
 
 .change-description {
     vertical-align: middle;
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
 
 .schedule-link a, .map-link a {
@@ -172,10 +172,10 @@ h1 span.subtitle {
 
 h2.line-description {
     font-size: 2rem;
-    padding-top: 0;
+    /* padding-top: 0;
     padding-bottom: 0.25rem;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 0; */
     line-height: 2rem;
 }
 

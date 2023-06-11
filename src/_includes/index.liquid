@@ -122,8 +122,9 @@ subtitle: "Coming June 25, 2023"
 
 			{% for line in lines %}
 				<div class="grid-row flex-row flex-gap" id="{{ 'line-' | append: line.line }}">
-					<div class="margin-left-5 margin-right-5 margin-top-5 grid-col line-change-info">
-						<div class="grid-row padding-3">
+					{%- comment -%} This section shows the update descriptions for mobile views ONLY {%- endcomment -%}
+					<div class="margin-x-2 margin-top-5 grid-col line-change-info desktop:display-none">
+						<div class="grid-row padding-3 flex-column">
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line.line %}
@@ -147,7 +148,74 @@ subtitle: "Coming June 25, 2023"
 								</div>
 							</div>
 							<div class="grid-col change-description">
-								<h2 class="line-description">{{ line.description }}</h2>
+								<h2 class="line-description margin-top-2 margin-bottom-0">{{ line.description }}</h2>
+								{% if line.schedule != null %}
+								<span class="schedule-link">
+									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
+										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+											<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
+										</svg>
+									</a>
+								</span>
+								{% endif %}
+								
+								{% assign updateList = pageContent.updates[line.line] %}
+								{% if updateList != null %}
+									{% for updateItem in updateList %}
+										<div class="line-update">
+											<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
+											<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
+											
+											{% if updateItem.map != '' %}
+												<div class="map-accordion__heading">
+													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
+														{{ pageContent.page.map }} 
+														<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+														<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+														</svg>
+													</a>
+												</div>
+												<div id="{{ 'map-' | append: line.line }}" class="map-accordion__content">
+													<img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
+												</div>
+											{% endif %}
+										</div>
+									{% endfor %}
+								{% endif %}
+								<div style="text-align: right;">
+									<a href="#chiclet-links">Back to top</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{%- comment -%} This section shows the update descriptions for desktop views ONLY {%- endcomment -%}
+					<div class="margin-x-2 margin-top-5 grid-col line-change-info display-none desktop:display-block">
+						<div class="grid-row padding-3 flex-row">
+							<div class="chiclet-container flex-auto">
+								<div class="chiclet-outer">
+									{% case line.line %}
+										{% when 802 %}
+											<span class="chiclet-inner a-line">
+										{% when 807 %}
+											<span class="chiclet-inner k-line">
+										{% when 854 %}
+											<span class="chiclet-inner l-line">
+										{% when 857 %}
+											<span class="chiclet-inner k-line">
+										{% when 910, 950 %}
+											<span class="chiclet-inner bus-j-line">
+										{% when 901 %}
+											<span class="chiclet-inner bus-g-line">
+										{% else %}
+											<span class="chiclet-inner bus-standard">
+									{% endcase %}
+									{{ line.line_label }}
+									</span>
+								</div>
+							</div>
+							<div class="grid-col change-description margin-left-2">
+								<h2 class="line-description margin-y-0">{{ line.description }}</h2>
 								{% if line.schedule != null %}
 								<span class="schedule-link">
 									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
