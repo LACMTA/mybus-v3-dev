@@ -7,7 +7,7 @@
 <form class="usa-form">
   <label class="usa-label" for="optionsTakeone" ></label>
   <select class="usa-select" name="options" id="optionsTakeone">
-    <option value>- Select -</option>
+    <option value>- Select Language -</option>
     {% for lang in langs.langList %}
       <option value="{{ langs[lang].takeone }}">{{ langs[lang].label }}</option>
     {% endfor %}

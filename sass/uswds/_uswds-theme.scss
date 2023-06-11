@@ -7,12 +7,13 @@ in the form $setting: value,
 ----------------------------------------
 */
 
-//
-//  @use "uswds-core" with (
-//    $setting: value,
-//    $setting: value
-//  );
-//
+
+ @use "uswds-core" with (
+   $theme-button-small-width: 10
+   
+ );
+
+
 
 .usa-header, .usa-nav {
     background-color: #000;
@@ -43,4 +44,3 @@ in the form $setting: value,
    width: 2rem;
    height: 2rem;
 }
-
