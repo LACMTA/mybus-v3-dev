@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         x.addEventListener('click', function(e) {
             let isExpanded = e.currentTarget.getAttribute('aria-expanded') == 'true' ? true : false;
             e.currentTarget.setAttribute('aria-expanded', !isExpanded);
-            
+
             if (isExpanded) {
                 e.currentTarget.querySelector('svg use').setAttribute('xlink:href', './assets/uswds/img/sprite.svg#expand_more');
             } else {
@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
             let targetContentNode = document.querySelector('.' + targetContentId);
 
             targetContentNode.toggleAttribute('hidden');
+
+            let targetContentNodeForMobile = document.querySelector('.mobile-' + targetContentId);
+            targetContentNodeForMobile.toggleAttribute('hidden');
             
 
         });
