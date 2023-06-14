@@ -165,7 +165,7 @@ subtitle: "Coming June 25, 2023"
 										<div class="line-update">
 											<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
 											<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
-											
+											{% comment %} 
 											{% if updateItem.map != '' %}
 												<div class="map-accordion__heading">
 													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
@@ -175,10 +175,12 @@ subtitle: "Coming June 25, 2023"
 														</svg>
 													</a>
 												</div>
-												<div id="{{ 'map-' | append: line.line }}" class="map-accordion__content">
+												<div class="{{ 'map-' | append: line.line }} map-accordion__content">
 													<img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
 												</div>
 											{% endif %}
+										{% endcomment %} 
+											
 										</div>
 									{% endfor %}
 								{% endif %}
@@ -242,7 +244,7 @@ subtitle: "Coming June 25, 2023"
 														</svg>
 													</a>
 												</div>
-												<div id="{{ 'map-' | append: line.line }}" class="map-accordion__content">
+												<div class="{{ 'map-' | append: line.line }} map-accordion__content">
 													<img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
 												</div>
 											{% endif %}
