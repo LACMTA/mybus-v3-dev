@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
 
             let targetContentId = e.currentTarget.getAttribute('aria-controls');
-            let targetContentNode = document.querySelector('#' + targetContentId);
+            let targetContentNode = document.querySelector('.' + targetContentId);
 
             targetContentNode.toggleAttribute('hidden');
             
