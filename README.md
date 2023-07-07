@@ -99,7 +99,7 @@ The content on the landing page changes periodically.  The options have been sep
 
 ## Using 11ty
 
-### Publishgin to GitHub Pages
+### Publishing to GitHub Pages
 
 The `.eleventy.js` config file needs the following two settings for GitHub Pages publishing:
 
