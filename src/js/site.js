@@ -49,8 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             let targetId = e.currentTarget.getAttribute('href');
-            let targetObject = document.querySelector(targetId + ' .line-change-info');
-            targetObject.classList.add('line-change-info__selected');
+            let targetObjects = document.querySelectorAll(targetId + ' .line-change-info');
+
+            targetObjects.forEach( (x) => {
+                x.classList.add('line-change-info__selected');
+            });
         });
     });
 
