@@ -16,7 +16,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/files");
 	eleventyConfig.addPassthroughCopy("assets");
 	eleventyConfig.addPassthroughCopy("CNAME");
-	eleventyConfig.addPassthroughCopy("favicon.ico");
+	eleventyConfig.addPassthroughCopy("src/favicon.ico");
 
 	eleventyConfig.addPlugin(EleventyI18nPlugin, {
 		defaultLanguage: "en",
