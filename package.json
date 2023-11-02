@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "rename": "node rename.js",
+    "uswds:watch": "npx gulp watch",
     "dev:serve": "NODE_ENV=dev npm run clean:serve",
     "dev:build": "NODE_ENV=dev npm run clean:build",
     "prod:build": "NODE_ENV=prod npm run clean:build",
