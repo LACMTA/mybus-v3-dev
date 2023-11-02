@@ -10,7 +10,7 @@ name: Build 11ty-web-template for Production
 on:
   pull_request:
     branches:
-      - main
+      - dev
 
 jobs:
   build:
