@@ -10,11 +10,11 @@ css:
 js-head:
 - '/js/site.js'
 
-mode: 'one-page'
-message: 'The theme of our latest Metro bus and rail service update is reliability, reliability, reliability. 65 weekday, 43 Saturday, 42 Sunday bus schedules have been updated to improve reliability. B/D subway schedules will also be updated.'
+mode: 'email-signup'
+message: 'Metro is making service changes to bus lines starting on Sunday, December 10, to provide riders with more reliable and predictable service. Get advanced notice of the upcoming improvements to your bus line.'
 
 title: "Service Updates"
-subtitle: "Coming June 25, 2023"
+subtitle: "Coming December 10, 2023"
 ---
 
 {% case page.lang %}
@@ -45,36 +45,37 @@ subtitle: "Coming June 25, 2023"
 				<div class="select-content padding-2 desktop:padding-5">
 					<h1 class="margin-y-0 font-sans-2xl desktop:font-sans-3xl line-height-sans-1">
 						{{ pageContent.page.pageTitle }}<br>
-						<span class="subtitle font-sans-lg desktop:font-sans-xl">{{ pageContent.page.pageSubtitle }}</span>
+						{%- comment -%} <span class="subtitle font-sans-lg desktop:font-sans-xl">{{ pageContent.page.pageSubtitle }}</span> {%- endcomment -%}
+						<span class="subtitle font-sans-lg desktop:font-sans-xl">{{ subtitle }}</span>
 					</h1>
 
-					{%- comment -%} {% case mode %}
-						{% when 'one-page' %}
+					{% case mode %}
+						{%- comment -%} {% when 'one-page' %}
 							{% include 'index/one-page' %}
 						{% when 'all' %}
 							{% include 'index/all-changes' %}
 						{% when 'select' %}
-							{% include 'index/select-line' %}
-						{% else %}
+							{% include 'index/select-line' %}{%- endcomment -%}
+						{% when 'email-signup' %}
 							{% include 'index/email-signup' %}
-					{% endcase %} {%- endcomment -%}
-
-					<p>
-						{{ pageContent.page.introP1 }}
-					  </p>
-					  <p>
-						{{ pageContent.page.introP2 }}
-					  </p>
-					  <form class="usa-form" id="downloadTakeone">
-						<label class="usa-label" for="optionsTakeone" ></label>
-						<select class="usa-select" name="options" id="optionsTakeone">
-						  <option value>- Select Language -</option>
-						  {% for lang in langs.langList %}
-							<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
-						  {% endfor %}
-						</select>
-						<button type="submit" class="usa-button">{{ pageContent.page.download }}</button>
-					  </form>
+						{% else %}
+						<p>
+							{{ pageContent.page.introP1 }}
+						  </p>
+						  <p>
+							{{ pageContent.page.introP2 }}
+						  </p>
+						  <form class="usa-form" id="downloadTakeone">
+							<label class="usa-label" for="optionsTakeone" ></label>
+							<select class="usa-select" name="options" id="optionsTakeone">
+							  <option value>- Select Language -</option>
+							  {% for lang in langs.langList %}
+								<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
+							  {% endfor %}
+							</select>
+							<button type="submit" class="usa-button">{{ pageContent.page.download }}</button>
+						  </form>
+					{% endcase %} 
 
 				</div>
 			</div>
