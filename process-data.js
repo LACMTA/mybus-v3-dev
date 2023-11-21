@@ -2,9 +2,12 @@ console.log("Running process-data.js\n");
 
 const fs = require ('fs');
 const papa = require('papaparse');
-const UPDATES_FILE = 'src/_data/updates.csv';
-const CONTENT_FILE = 'src/_data/content.csv';
+
+const CURRENT_SHAKEUP_FOLDER = '2023-12';
+const UPDATES_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/updates.csv';
+const CONTENT_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/content.csv';
 const OUTPUT_PATH = 'src/data/';
+
 let rs_updates_file;
 let rs_content_file;
 
