@@ -1,10 +1,12 @@
 import pandas as pd
 
-SOURCE_FILE = 'src/_data/june-2023-translated-final.xlsx'
+CURRENT_SHAKEUP_FOLDER = '2023-12'
+
+SOURCE_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/dec-2023-translations.xlsx'
 
 LINES_OUTPUT = 'src/data/lines.json'
-UPDATES_OUTPUT = 'src/_data/updates.csv'
-CONTENT_OUTPUT = 'src/_data/content.csv'
+UPDATES_OUTPUT = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/updates.csv'
+CONTENT_OUTPUT = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/content.csv'
 
 print("Running process-data.py\n")
 

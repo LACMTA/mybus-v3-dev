@@ -23,7 +23,7 @@
 						{% for link in links %}
 							{% if link.lang == lang %}
 							<li class="usa-language__submenu-item">
-							<a href="{{ link.url | url }}"><span>{{ langs[lang].label }}</span></a>
+							<a href="{{ link.url | url }}" class="lang-selector lang-{{ lang }}"><span>{{ langs[lang].label }}</span></a>
 							</li>
 							{% endif %}
 						{% endfor %}

@@ -9,7 +9,7 @@ css:
 js-head:
 - '/js/site.js'
 
-mode: 'email-signup'
+mode: 'one-page'
 message: 'Metro is making service changes to bus lines starting on Sunday, December 10, to provide riders with more reliable and predictable service. Get advanced notice of the upcoming improvements to your bus line.'
 
 title: "Service Updates"
@@ -44,8 +44,8 @@ subtitle: "Coming December 10, 2023"
 				<div class="select-content padding-2 desktop:padding-5">
 					<h1 class="margin-y-0 font-sans-2xl desktop:font-sans-3xl line-height-sans-1">
 						{{ pageContent.page.pageTitle }}<br>
-						{%- comment -%} <span class="subtitle font-sans-lg desktop:font-sans-xl">{{ pageContent.page.pageSubtitle }}</span> {%- endcomment -%}
-						<span class="subtitle font-sans-lg desktop:font-sans-xl">{{ subtitle }}</span>
+						<span class="subtitle font-sans-lg desktop:font-sans-xl">{{ pageContent.page.pageSubtitle }}</span>
+						{% comment %} <span class="subtitle font-sans-lg desktop:font-sans-xl">{{ subtitle }}</span> {% endcomment %}
 					</h1>
 
 					{% case mode %}
@@ -72,7 +72,7 @@ subtitle: "Coming December 10, 2023"
 								<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
 							  {% endfor %}
 							</select>
-							<button type="submit" class="usa-button">{{ pageContent.page.download }}</button>
+							<button type="submit" class="usa-button takeone-download">{{ pageContent.page.download }}</button>
 						  </form>
 					{% endcase %} 
 
@@ -94,14 +94,22 @@ subtitle: "Coming December 10, 2023"
 								<div class="chiclet-container">
 									<div class="chiclet-outer">
 										{% case line.line %}
-											{% when 802 %}
+											{% when 801 %}
 												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 802 %}
+												<a class="chiclet-inner b-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 803 %}
+												<a class="chiclet-inner c-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 804 %}
+												<a class="chiclet-inner e-line" href="#{{ 'line-' | append: line.line }}">
+											{% when 805 %}
+												<a class="chiclet-inner d-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 807 %}
 												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 854 %}
 												<a class="chiclet-inner l-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 857 %}
-												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner c-k-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 910, 950 %}
 												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line.line }}">
 											{% when 901 %}
@@ -128,14 +136,22 @@ subtitle: "Coming December 10, 2023"
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line.line %}
-										{% when 802 %}
+										{% when 801 %}
 											<span class="chiclet-inner a-line">
+										{% when 802 %}
+											<span class="chiclet-inner b-line">
+										{% when 803 %}
+											<span class="chiclet-inner c-line">
+										{% when 804 %}
+											<span class="chiclet-inner e-line">
+										{% when 805 %}
+											<span class="chiclet-inner d-line">
 										{% when 807 %}
 											<span class="chiclet-inner k-line">
 										{% when 854 %}
 											<span class="chiclet-inner l-line">
 										{% when 857 %}
-											<span class="chiclet-inner k-line">
+											<span class="chiclet-inner c-k-line">
 										{% when 910, 950 %}
 											<span class="chiclet-inner bus-j-line">
 										{% when 901 %}
@@ -163,8 +179,14 @@ subtitle: "Coming December 10, 2023"
 								{% if updateList != null %}
 									{% for updateItem in updateList %}
 										<div class="line-update">
-											<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
-											<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
+											{% if updateItem.update != '' %}
+												<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
+											{% endif %}
+											
+											{% if updateItem.reason != '' %}
+												<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
+											{% endif %}
+
 											{% if updateItem.map != '' %}
 												<div class="map-accordion__heading">
 													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
@@ -195,14 +217,22 @@ subtitle: "Coming December 10, 2023"
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line.line %}
-										{% when 802 %}
+										{% when 801 %}
 											<span class="chiclet-inner a-line">
+										{% when 802 %}
+											<span class="chiclet-inner b-line">
+										{% when 803 %}
+											<span class="chiclet-inner c-line">
+										{% when 804 %}
+											<span class="chiclet-inner e-line">
+										{% when 805 %}
+											<span class="chiclet-inner d-line">
 										{% when 807 %}
 											<span class="chiclet-inner k-line">
 										{% when 854 %}
 											<span class="chiclet-inner l-line">
 										{% when 857 %}
-											<span class="chiclet-inner k-line">
+											<span class="chiclet-inner c-k-line">
 										{% when 910, 950 %}
 											<span class="chiclet-inner bus-j-line">
 										{% when 901 %}
@@ -230,8 +260,13 @@ subtitle: "Coming December 10, 2023"
 								{% if updateList != null %}
 									{% for updateItem in updateList %}
 										<div class="line-update">
-											<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
-											<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
+											{% if updateItem.update != '' %}
+												<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
+											{% endif %}
+
+											{% if updateItem.reason != '' %}
+												<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
+											{% endif %}
 											
 											{% if updateItem.map != '' %}
 												<div class="map-accordion__heading">

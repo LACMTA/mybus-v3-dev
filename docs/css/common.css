@@ -123,12 +123,37 @@ hr {
 }
 
 .a-line {
-    background: linear-gradient(to right, #EB131B, 20%, #A05DA5);
+    background-color: #0072BC;
     color: #fff;
+}
+
+.b-line {
+    background-color: #EB131B;
+    color: #fff;
+}
+
+.c-line {
+    background: #58A738;
+    color: #fff;
+}
+
+.d-line {
+    background-color: #A05DA5;
+    color: #fff;
+}
+
+.e-line {
+    background: #FDB913;
+    color: #000;
 }
 
 .k-line {
     background-color: #E56DB1;
+    color: #000;
+}
+
+.c-k-line {
+    background: linear-gradient(to right, #58A738, 40%, #E56DB1);
     color: #000;
 }
 
