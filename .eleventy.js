@@ -1,7 +1,12 @@
 const { EleventyI18nPlugin } = require("@11ty/eleventy");
 const isProduction = process.env.NODE_ENV === "prod";
+const baseUrl = isProduction ? `https://mybus.metro.net/` : `localhost:8080/mybus-v3`;
 
 console.log(process.env.NODE_ENV);
+
+const toAbsoluteUrl = (url) => {
+	return new URL(url, baseUrl).href;
+}
 
 module.exports = function(eleventyConfig) {
 	if (!isProduction) {
@@ -10,6 +15,9 @@ module.exports = function(eleventyConfig) {
 			broken: "error"
 		});
 	};
+
+	eleventyConfig.addFilter('toAbsoluteUrl', toAbsoluteUrl);
+
 	eleventyConfig.addPassthroughCopy("src/css");
 	eleventyConfig.addPassthroughCopy("src/js");
 	eleventyConfig.addPassthroughCopy("src/img");
