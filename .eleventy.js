@@ -1,11 +1,17 @@
 const { EleventyI18nPlugin } = require("@11ty/eleventy");
 const isProduction = process.env.NODE_ENV === "prod";
-const baseUrl = isProduction ? `https://mybus.metro.net/` : `localhost:8080/mybus-v3`;
+const baseUrl = isProduction ? `https://mybus.metro.net/` : `http://localhost:8080/mybus-v3/`;
 
 console.log(process.env.NODE_ENV);
 
 const toAbsoluteUrl = (url) => {
-	return new URL(url, baseUrl).href;
+	try {
+		let newUrl = new URL(url, baseUrl);
+		return newUrl.href;
+	} catch (e) {
+		console.error(e);
+		return url;
+	}
 }
 
 module.exports = function(eleventyConfig) {
