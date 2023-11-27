@@ -28,6 +28,6 @@
     "papaparse": "^5.4.1"
   },
   "devDependencies": {
-    "@uswds/compile": "^1.0.0"
+    "@uswds/compile": "^1.1.0"
   }
 }

@@ -204,6 +204,11 @@ h2.line-description {
     line-height: 2rem;
 }
 
+h2.line-description small {
+    font-size: 0.6em;
+}
+
+
 /* USWDS Accordion Styling Changes */
 .map-accordion__button {
     border: 0;
