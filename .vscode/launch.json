@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run Script: Test Data",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test:data"
+            ],
+            "runtimeExecutable": "npm",
+            "cwd": "${workspaceFolder}",
+            "type": "node"
+        },
+
+
+        {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch process-data.js",
             "skipFiles": [
                 "<node_internals>/**"
             ],

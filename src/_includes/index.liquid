@@ -10,10 +10,10 @@ js-head:
 - '/js/site.js'
 
 mode: 'one-page'
-message: 'Metro is making service changes to bus lines starting on Sunday, December 10, to provide riders with more reliable and predictable service. Get advanced notice of the upcoming improvements to your bus line.'
+# message: 'Metro is making service changes to bus lines starting on Sunday, December 10, to provide riders with more reliable and predictable service. Get advanced notice of the upcoming improvements to your bus line.'
 
-title: "Service Updates"
-subtitle: "Coming December 10, 2023"
+# title: "Service Updates"
+# subtitle: "Coming December 10, 2023"
 ---
 
 {% case page.lang %}
@@ -84,40 +84,41 @@ subtitle: "Coming December 10, 2023"
 		</div>
 		{% case mode %}
 			{% when 'one-page' %}
+			{% comment %} List of chiclet button links to each line update {%- endcomment %}
 			<div class="grid-row grid-gap" id="chiclet-links">
 				<div class="grid-col">
 					<div class="padding-x-2 desktop:padding-x-5">
 						<h2 style="margin-top-0">{{ pageContent.page.lineListTitle }}</h2>
 
 						<div class="grid-row flex-row flex-wrap flex-gap">
-							{% for line in lines %}
+							{% for line in pageContent.lineList %}
 								<div class="chiclet-container">
 									<div class="chiclet-outer">
-										{% case line.line %}
+										{% case line %}
 											{% when 801 %}
-												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line }}">
 											{% when 802 %}
-												<a class="chiclet-inner b-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner b-line" href="#{{ 'line-' | append: line }}">
 											{% when 803 %}
-												<a class="chiclet-inner c-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner c-line" href="#{{ 'line-' | append: line }}">
 											{% when 804 %}
-												<a class="chiclet-inner e-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner e-line" href="#{{ 'line-' | append: line }}">
 											{% when 805 %}
-												<a class="chiclet-inner d-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner d-line" href="#{{ 'line-' | append: line }}">
 											{% when 807 %}
-												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line }}">
 											{% when 854 %}
-												<a class="chiclet-inner l-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner l-line" href="#{{ 'line-' | append: line }}">
 											{% when 857 %}
-												<a class="chiclet-inner c-k-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner c-k-line" href="#{{ 'line-' | append: line }}">
 											{% when 910, 950 %}
-												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line }}">
 											{% when 901 %}
-												<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line }}">
 											{% else %}
-												<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line.line }}">
+												<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line }}">
 										{% endcase %}
-											{{ line.line_label }}
+											{{ line }}
 										</a>
 										
 									</div>
@@ -128,14 +129,16 @@ subtitle: "Coming December 10, 2023"
 				</div>
 			</div>
 
-			{% for line in lines %}
-				<div class="grid-row flex-row flex-gap" id="{{ 'line-' | append: line.line }}">
+			{% for line in pageContent.lineList %}
+				{% assign lineUpdate = pageContent.updates[line] %}
+
+				<div class="grid-row flex-row flex-gap" id="{{ 'line-' | append: line }}">
 					{%- comment -%} This section shows the update descriptions for mobile views ONLY {%- endcomment -%}
 					<div class="margin-x-2 margin-top-5 grid-col line-change-info desktop:display-none">
 						<div class="grid-row padding-3 flex-column">
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
-									{% case line.line %}
+									{% case line %}
 										{% when 801 %}
 											<span class="chiclet-inner a-line">
 										{% when 802 %}
@@ -159,19 +162,19 @@ subtitle: "Coming December 10, 2023"
 										{% else %}
 											<span class="chiclet-inner bus-standard">
 									{% endcase %}
-									{{ line.line_label }}
+										{{ line }}
 									</span>
 								</div>
 							</div>
 							<div class="grid-col change-description">
-								<h2 class="line-description margin-top-2 margin-bottom-0">{{ line.description }}
-									{% if line.arterial != null %}
-										<br><small>via {{ line.arterial  }}</small>
+								<h2 class="line-description margin-top-2 margin-bottom-0">{{ lineUpdate.description }}
+									{% if lineUpdate.arterials != null %}
+										<br><small>via {{ lineUpdate.arterials }}</small>
 									{% endif %}
 								</h2>
-								{% if line.schedule != null %}
+								{% if lineUpdate.schedule != null %}
 								<span class="schedule-link">
-									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
+									<a href="{{ '/files/schedules/' | append: lineUpdate.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
 										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 											<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
 										</svg>
@@ -179,35 +182,30 @@ subtitle: "Coming December 10, 2023"
 								</span>
 								{% endif %}
 								
-								{% assign updateList = pageContent.updates[line.line] %}
-								{% if updateList != null %}
-									{% for updateItem in updateList %}
-										<div class="line-update">
-											{% if updateItem.update != '' %}
-												<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
-											{% endif %}
-											
-											{% if updateItem.reason != '' %}
-												<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
-											{% endif %}
+								<div class="line-update">
+									{% if lineUpdate.update != '' %}
+										<strong>{{ pageContent.page.update }}</strong> {{ lineUpdate.update }}<br>
+									{% endif %}
+									
+									{% if lineUpdate.reason != '' %}
+										<strong>{{ pageContent.page.reason }}</strong> {{ lineUpdate.reason }}
+									{% endif %}
 
-											{% if updateItem.map != '' %}
-												<div class="map-accordion__heading">
-													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
-														{{ pageContent.page.map }} 
-														<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
-														<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
-														</svg>
-													</a>
-												</div>
-												<div class="{{ 'mobile-map-' | append: line.line }} map-accordion__content">
-													<img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
-												</div>
-											{% endif %}
-											
+									{% if lineUpdate.map != '' %}
+										<div class="map-accordion__heading">
+											<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line }}">
+												{{ pageContent.page.map }} 
+												<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+												<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+												</svg>
+											</a>
 										</div>
-									{% endfor %}
-								{% endif %}
+										<div class="{{ 'mobile-map-' | append: line }} map-accordion__content">
+											<img src="{{ '/img/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
+										</div>
+									{% endif %}
+									
+								</div>
 								<div style="text-align: right;">
 									<a href="#chiclet-links">Back to top</a>
 								</div>
@@ -220,7 +218,7 @@ subtitle: "Coming December 10, 2023"
 						<div class="grid-row padding-3 flex-row">
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
-									{% case line.line %}
+									{% case line %}
 										{% when 801 %}
 											<span class="chiclet-inner a-line">
 										{% when 802 %}
@@ -244,19 +242,19 @@ subtitle: "Coming December 10, 2023"
 										{% else %}
 											<span class="chiclet-inner bus-standard">
 									{% endcase %}
-									{{ line.line_label }}
+										{{ line }}
 									</span>
 								</div>
 							</div>
 							<div class="grid-col change-description margin-left-2">
-								<h2 class="line-description margin-y-0">{{ line.description }} 
-									{% if line.arterial != null %}
-										<small>via {{ line.arterial  }}</small>
+								<h2 class="line-description margin-y-0">{{ lineUpdate.description }} 
+									{% if lineUpdate.arterials != null %}
+										<small>via {{ lineUpdate.arterials  }}</small>
 									{% endif %}
 								</h2>
-								{% if line.schedule != null %}
+								{% if lineUpdate.schedule != null %}
 								<span class="schedule-link">
-									<a href="{{ '/files/schedules/' | append: line.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
+									<a href="{{ '/files/schedules/' | append: lineUpdate.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
 										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 											<use xlink:href="{{ '/assets/uswds/img/sprite.svg#file_download' | url }}"></use>
 										</svg>
@@ -264,34 +262,29 @@ subtitle: "Coming December 10, 2023"
 								</span>
 								{% endif %}
 								
-								{% assign updateList = pageContent.updates[line.line] %}
-								{% if updateList != null %}
-									{% for updateItem in updateList %}
-										<div class="line-update">
-											{% if updateItem.update != '' %}
-												<strong>{{ pageContent.page.update }}</strong> {{ updateItem.update }}<br>
-											{% endif %}
+								<div class="line-update">
+									{% if lineUpdate.update != '' %}
+										<strong>{{ pageContent.page.update }}</strong> {{ lineUpdate.update }}<br>
+									{% endif %}
 
-											{% if updateItem.reason != '' %}
-												<strong>{{ pageContent.page.reason }}</strong> {{ updateItem.reason }}
-											{% endif %}
-											
-											{% if updateItem.map != '' %}
-												<div class="map-accordion__heading">
-													<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line.line }}">
-														{{ pageContent.page.map }} 
-														<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
-														<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
-														</svg>
-													</a>
-												</div>
-												<div class="{{ 'map-' | append: line.line }} map-accordion__content">
-													<img src="{{ '/img/' | append: updateItem.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line.line }}">
-												</div>
-											{% endif %}
+									{% if lineUpdate.reason != '' %}
+										<strong>{{ pageContent.page.reason }}</strong> {{ lineUpdate.reason }}
+									{% endif %}
+									
+									{% if lineUpdate.map != '' %}
+										<div class="map-accordion__heading">
+											<button type="button" class="map-accordion__button" aria-expanded="false" aria-controls="{{ 'map-' | append: line }}">
+												{{ pageContent.page.map }} 
+												<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+												<use xlink:href="{{ '/assets/uswds/img/sprite.svg#expand_more' | url }}"></use>
+												</svg>
+											</a>
 										</div>
-									{% endfor %}
-								{% endif %}
+										<div class="{{ 'map-' | append: line }} map-accordion__content">
+											<img src="{{ '/img/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
+										</div>
+									{% endif %}
+								</div>
 								<div style="text-align: right;">
 									<a href="#chiclet-links">Back to top</a>
 								</div>

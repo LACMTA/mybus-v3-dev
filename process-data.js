@@ -1,15 +1,19 @@
 console.log("Running process-data.js\n");
 
-const fs = require ('fs');
+const fs = require('fs');
 const papa = require('papaparse');
 
-const CURRENT_SHAKEUP_FOLDER = '2023-12';
+const CURRENT_SHAKEUP_FOLDER = '2024-06';
+
 const UPDATES_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/updates.csv';
 const CONTENT_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/content.csv';
+const LINES_BUS_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/lines-bus.json';
+const LINES_RAIL_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/lines-rail.json';
 const OUTPUT_PATH = 'src/data/';
 
 let rs_updates_file;
 let rs_content_file;
+let linesData;
 
 try {
     rs_updates_file = fs.createReadStream(UPDATES_FILE);
@@ -27,7 +31,24 @@ try {
     console.log(e);
 }
 
-console.log('')
+try {
+    let busLinesData = JSON.parse(fs.readFileSync(LINES_BUS_FILE, 'utf-8'));
+    console.log('Read file:', LINES_BUS_FILE);
+
+    try {
+        let railLinesData = JSON.parse(fs.readFileSync(LINES_RAIL_FILE, 'utf-8'));
+        linesData = busLinesData.concat(railLinesData);
+        
+    } catch (e) {
+        console.log('Error reading file:', LINES_RAIL_FILE);
+        console.log(e);
+    }
+} catch (e) {
+    console.log('Error reading file:', LINES_BUS_FILE);
+    console.log(e);
+}
+
+console.log('');
 
 let count = 0;
 const langs = ['en', 'es', 'hy', 'ja', 'ko', 'ru', 'vi', 'zh-tw'];
@@ -75,6 +96,8 @@ let translation_results = {
     }
 };
 
+let lineList = [];
+
 papa.parse(rs_updates_file, {
     header: true,
     worker: true,
@@ -86,6 +109,7 @@ papa.parse(rs_updates_file, {
         try {
             results.data.forEach(function(item) {
                 let line = item.line;
+                lineList.push(line);
 
                 if (!translation_results.lines.includes(line)) {
                     translation_results.lines.push(line);
@@ -98,7 +122,25 @@ papa.parse(rs_updates_file, {
                     update['update'] = item[lang + '-update'];
                     update['reason'] = item[lang + '-reason'];
                     update['map'] = item['map'];
-                    translation_results[lang].updates[line].push(update);
+                    
+                    // find the object in linesData where line is equal to item.route_code and add the terminal_1, terminal_2, and arterials fields
+                    let lineData = linesData.find(lineData => lineData['route_code'] === line || lineData['route_short_name'] === line);
+                    
+                    if (lineData) {
+                        if (lineData['terminal_1'] != null && lineData['terminal_2'] != null) {
+                            update['description'] = `${lineData['terminal_1']} - ${lineData['terminal_2']}`;
+                        } else {
+                            console.log('No terminal data found for line:', line);
+                            update['description'] = lineData['long_name'];
+                        }
+                        
+                        update['arterials'] = lineData['arterials'];
+                    } else {
+                        console.log('Line data not found for line:', line);
+                    }
+
+                    translation_results[lang].updates[line] = update;
+                    translation_results[lang]['lineList'] = lineList;
                 });
             });
             // console.log(results);

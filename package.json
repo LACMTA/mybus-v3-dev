@@ -1,12 +1,17 @@
 {
   "name": "mybus",
   "version": "2.0.0",
-  "description": "This website describes upcoming bus service changes for LA Metro.",
+  "description": "This website describes upcoming bus service changes for LA Metro. Starting 6/2024, parse:data is used to parse the data from Google Sheets.",
   "main": "index.js",
   "scripts": {
     "rename": "node rename.js",
+    "fetch:data-updates": "curl -fsSL -o src/_data/2024-06/updates.csv https://docs.google.com/spreadsheets/d/1KlCaGt2jtA_hHfF8klT_cc0AmXfJdD_fNd7I4zZD8E4/export?format=csv&usp=sharing&gid=0",
+    "fetch:data-content": "curl -fsSL -o src/_data/2024-06/content.csv https://docs.google.com/spreadsheets/d/1ypHpxlu18zoAtHaSwvz0cMW_tbTuqfaZPDARXpyUVZU/export?format=csv&usp=sharing&gid=2067994077",
+    "fetch:data-lines-bus": "curl -fsSL -o src/_data/2024-06/lines-bus.json https://api.metro.net/LACMTA/route_overview",
+    "fetch:data-lines-rail": "curl -fsSL -o src/_data/2024-06/lines-rail.json https://api.metro.net/LACMTA_Rail/route_overview",
+    "fetch:data": "npm run fetch:data-updates && npm run fetch:data-content && npm run fetch:data-lines-bus && npm run fetch:data-lines-rail",
     "uswds:watch": "npx gulp watch",
-    "dev:serve": "NODE_ENV=dev npm run clean:serve",
+    "dev:serve": "NODE_ENV=dev npm run fetch:data && npm run parse:data && npm run clean:serve",
     "dev:build": "NODE_ENV=dev npm run clean:build",
     "prod:build": "NODE_ENV=prod npm run clean:build",
     "clean": "npx rimraf docs",
@@ -15,7 +20,9 @@
     "serve": "npx @11ty/eleventy --serve",
     "debug": "DEBUG=* npx @11ty/eleventy --serve",
     "clean:serve": "npm run clean && npm run serve",
-    "process-data": "python3 process-data.py && node process-data.js"
+    "process-data": "python3 process-data.py && node process-data.js",
+    "parse:data": "node process-data.js",
+    "test:data": "npm run fetch:data && npm run parse:data"
   },
   "repository": {
     "type": "git",
