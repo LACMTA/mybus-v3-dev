@@ -11,6 +11,8 @@ on:
   pull_request:
     branches:
       - dev
+env:
+  env_var: ${{ vars.ENV }}
 
 jobs:
   build:
@@ -36,7 +38,7 @@ jobs:
     - name: Compile USWDS
       run: npx gulp compile
     - name: Build Site
-      run: npm run prod:build
+      run: npm run $env_var:build
     - name: Check file existence
       id: check_files
       uses: andstor/file-existence-action@v1
