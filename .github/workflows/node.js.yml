@@ -11,12 +11,9 @@ on:
   pull_request:
     branches:
       - dev
-env:
-  env_var: ${{ vars.ENV }}
 
 jobs:
   build:
-    # if: github.repository != 'LACMTA/11ty-web-template'
     runs-on: ubuntu-latest
 
     steps:
