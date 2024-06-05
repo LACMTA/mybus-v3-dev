@@ -172,7 +172,7 @@ mode: 'one-page'
 										<br><small>via {{ lineUpdate.arterials }}</small>
 									{% endif %}
 								</h2>
-								{% if lineUpdate.schedule != null %}
+								{% if lineUpdate.schedule != null and lineUpdate.schedule != '' %}
 								<span class="schedule-link">
 									<a href="{{ '/files/schedules/' | append: lineUpdate.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
 										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
@@ -252,7 +252,7 @@ mode: 'one-page'
 										<small>via {{ lineUpdate.arterials  }}</small>
 									{% endif %}
 								</h2>
-								{% if lineUpdate.schedule != null %}
+								{% if lineUpdate.schedule != null and lineUpdate.schedule != '' %}
 								<span class="schedule-link">
 									<a href="{{ '/files/schedules/' | append: lineUpdate.schedule | url }}" target="_blank">{{ pageContent.page.schedule }} 
 										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
