@@ -5,15 +5,16 @@
 # It will copy the CNAME file to the docs/ folder if necessary, then it will commit and push
 # these changes back to the repository.
 
-name: Build 11ty-web-template for Production
+name: Build 11ty site for Dev
 
 on:
-  pull_request:
-    branches:
-      - dev
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
+    if: github.repository == 'LACMTA/mybus-v3-dev'
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +36,7 @@ jobs:
     - name: Compile USWDS
       run: npx gulp compile
     - name: Build Site
-      run: npm run $env_var:build
+      run: npm run dev:build
     - name: Check file existence
       id: check_files
       uses: andstor/file-existence-action@v1
