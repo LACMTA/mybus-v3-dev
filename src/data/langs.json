@@ -8,39 +8,7 @@
         "ja",
         "ru",
         "hy"
-    ],
-    "en": {
-        "label": "English",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_English.pdf"
-    },
-    "es": {
-        "label": "Español (Spanish)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Spanish.pdf"
-    },
-    "zh-tw": {
-        "label": "中文 (Chinese Traditional)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Chinese.pdf"
-    },
-    "ko": {
-        "label": "한국어 (Korean)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Korean.pdf"
-    },
-    "vi": {
-        "label": "Tiếng Việt (Vietnamese)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Vietnamese.pdf"
-    },
-    "ja": {
-        "label": "日本語 (Japanese)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Japanese.pdf"
-    },
-    "ru": {
-        "label": "русский (Russian)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Russian.pdf"
-    },
-    "hy": {
-        "label": "հայերեն (Armenian)",
-        "takeone": "/files/takeones/2023_December_Service_Change_-_Armenian.pdf"
-    }
+    ]
 }
 
 

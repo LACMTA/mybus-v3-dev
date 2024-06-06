@@ -125,7 +125,7 @@ papa.parse(rs_updates_file, {
                     update['schedule'] = item['schedule'];
                     
                     // find the object in linesData where line is equal to item.route_code and add the terminal_1, terminal_2, and arterials fields
-                    let lineData = linesData.find(lineData => lineData['route_code'] === line || lineData['route_short_name'] === line);
+                    let lineData = linesData.find(lineData => lineData['route_code'] === line || lineData['route_short_name'] === line || lineData['route_id'] === line);
                     
                     if (lineData) {
                         if (lineData['terminal_1'] != null && lineData['terminal_2'] != null) {
@@ -135,6 +135,7 @@ papa.parse(rs_updates_file, {
                             update['description'] = lineData['long_name'];
                         }
                         
+                        update['lineLabel'] = lineData['long_name'] != null ? lineData['long_name'] : line;
                         update['arterials'] = lineData['arterials'];
                     } else {
                         console.log('Line data not found for line:', line);

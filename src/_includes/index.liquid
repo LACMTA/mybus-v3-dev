@@ -59,21 +59,26 @@ mode: 'one-page'
 							{% include 'index/email-signup' %}
 						{% else %}
 						<p>
-							{{ pageContent.page.introP1 }}
-						  </p>
-						  <p>
-							{{ pageContent.page.introP2 }}
-						  </p>
-						  <form class="usa-form" id="downloadTakeone">
-							<label class="usa-label" for="optionsTakeone" ></label>
-							<select class="usa-select" name="options" id="optionsTakeone">
-							  <option value>- Select Language -</option>
-							  {% for lang in langs.langList %}
-								<option value="{{ langs[lang].takeone | url }}">{{ langs[lang].label }}</option>
-							  {% endfor %}
-							</select>
-							<button type="submit" class="usa-button takeone-download">{{ pageContent.page.download }}</button>
-						  </form>
+						{{ pageContent.page.introP1 }}
+						</p>
+						<p>
+						{{ pageContent.page.introP2 }}
+						</p>
+
+						<form class="usa-form" id="downloadTakeone">
+						<label class="usa-label" for="optionsTakeone" ></label>
+						<select class="usa-select" name="options" id="optionsTakeone">
+							<option value>{{ pageContent.page.selectLanguage }}</option>
+							{% for lang in langs.langList %}
+								{% capture takeoneLabel %}takeone_label_{{ lang }}{% endcapture %}
+								{% capture takeoneFile %}takeone_file_{{ lang }}{% endcapture %}
+								{% capture takeonePath %}/files/takeones/{{ pageContent.page[takeoneFile] }}{% endcapture %}
+
+								<option value="{{ takeonePath | url }}">{{ pageContent.page[takeoneLabel] }}</option>
+							{% endfor %}
+						</select>
+						<button type="submit" class="usa-button takeone-download">{{ pageContent.page.download }}</button>
+						</form>
 					{% endcase %} 
 
 				</div>
@@ -95,30 +100,29 @@ mode: 'one-page'
 								<div class="chiclet-container">
 									<div class="chiclet-outer">
 										{% case line %}
-											{% when 801 %}
-												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line }}">
-											{% when 802 %}
-												<a class="chiclet-inner b-line" href="#{{ 'line-' | append: line }}">
-											{% when 803 %}
-												<a class="chiclet-inner c-line" href="#{{ 'line-' | append: line }}">
-											{% when 804 %}
-												<a class="chiclet-inner e-line" href="#{{ 'line-' | append: line }}">
-											{% when 805 %}
-												<a class="chiclet-inner d-line" href="#{{ 'line-' | append: line }}">
-											{% when 807 %}
-												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line }}">
-											{% when 854 %}
-												<a class="chiclet-inner l-line" href="#{{ 'line-' | append: line }}">
-											{% when 857 %}
-												<a class="chiclet-inner c-k-line" href="#{{ 'line-' | append: line }}">
-											{% when 910, 950 %}
-												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line }}">
-											{% when 901 %}
-												<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line }}">
+											{% when '801' %}
+												<a class="chiclet-inner a-line" href="#{{ 'line-' | append: line }}">A Line
+											{% when '802' %}
+												<a class="chiclet-inner b-line" href="#{{ 'line-' | append: line }}">B Line
+											{% when '803' %}
+												<a class="chiclet-inner c-line" href="#{{ 'line-' | append: line }}">C Line
+											{% when '804' %}
+												<a class="chiclet-inner e-line" href="#{{ 'line-' | append: line }}">E Line
+											{% when '805' %}
+												<a class="chiclet-inner d-line" href="#{{ 'line-' | append: line }}">D Line
+											{% when '807' %}
+												<a class="chiclet-inner k-line" href="#{{ 'line-' | append: line }}">K Line
+											{% when '857' %}
+												<a class="chiclet-inner c-k-line" href="#{{ 'line-' | append: line }}">C & K Line Link
+											{% when '910' %}
+												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line }}">J Line (910)
+											{% when '950' %}
+												<a class="chiclet-inner bus-j-line" href="#{{ 'line-' | append: line }}">J Line (950)
+											{% when '901' %}
+												<a class="chiclet-inner bus-g-line" href="#{{ 'line-' | append: line }}">G Line
 											{% else %}
-												<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line }}">
-										{% endcase %}
-											{{ line }}
+												<a class="chiclet-inner bus-standard" href="#{{ 'line-' | append: line }}">{{ line }}
+										{% endcase %}											
 										</a>
 										
 									</div>
@@ -139,30 +143,29 @@ mode: 'one-page'
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line %}
-										{% when 801 %}
-											<span class="chiclet-inner a-line">
-										{% when 802 %}
-											<span class="chiclet-inner b-line">
-										{% when 803 %}
-											<span class="chiclet-inner c-line">
-										{% when 804 %}
-											<span class="chiclet-inner e-line">
-										{% when 805 %}
-											<span class="chiclet-inner d-line">
-										{% when 807 %}
-											<span class="chiclet-inner k-line">
-										{% when 854 %}
-											<span class="chiclet-inner l-line">
-										{% when 857 %}
-											<span class="chiclet-inner c-k-line">
-										{% when 910, 950 %}
-											<span class="chiclet-inner bus-j-line">
-										{% when 901 %}
-											<span class="chiclet-inner bus-g-line">
+										{% when '801' %}
+											<span class="chiclet-inner a-line">A Line
+										{% when '802' %}
+											<span class="chiclet-inner b-line">B Line
+										{% when '803' %}
+											<span class="chiclet-inner c-line">C Line
+										{% when '804' %}
+											<span class="chiclet-inner e-line">E Line
+										{% when '805' %}
+											<span class="chiclet-inner d-line">D Line
+										{% when '807' %}
+											<span class="chiclet-inner k-line">K Line
+										{% when '857' %}
+											<span class="chiclet-inner c-k-line">C & K Line Link
+										{% when '910' %}
+											<span class="chiclet-inner bus-j-line">J Line (910)
+										{% when '950' %}
+											<span class="chiclet-inner bus-j-line">J Line (950)
+										{% when '901' %}
+											<span class="chiclet-inner bus-g-line">G Line
 										{% else %}
-											<span class="chiclet-inner bus-standard">
+											<span class="chiclet-inner bus-standard">{{ line }}
 									{% endcase %}
-										{{ line }}
 									</span>
 								</div>
 							</div>
@@ -201,7 +204,7 @@ mode: 'one-page'
 											</a>
 										</div>
 										<div class="{{ 'mobile-map-' | append: line }} map-accordion__content">
-											<img src="{{ '/img/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
+											<img src="{{ '/files/maps/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
 										</div>
 									{% endif %}
 									
@@ -219,30 +222,29 @@ mode: 'one-page'
 							<div class="chiclet-container flex-auto">
 								<div class="chiclet-outer">
 									{% case line %}
-										{% when 801 %}
-											<span class="chiclet-inner a-line">
-										{% when 802 %}
-											<span class="chiclet-inner b-line">
-										{% when 803 %}
-											<span class="chiclet-inner c-line">
-										{% when 804 %}
-											<span class="chiclet-inner e-line">
-										{% when 805 %}
-											<span class="chiclet-inner d-line">
-										{% when 807 %}
-											<span class="chiclet-inner k-line">
-										{% when 854 %}
-											<span class="chiclet-inner l-line">
-										{% when 857 %}
-											<span class="chiclet-inner c-k-line">
-										{% when 910, 950 %}
-											<span class="chiclet-inner bus-j-line">
-										{% when 901 %}
-											<span class="chiclet-inner bus-g-line">
+										{% when '801' %}
+											<span class="chiclet-inner a-line">A Line
+										{% when '802' %}
+											<span class="chiclet-inner b-line">B Line
+										{% when '803' %}
+											<span class="chiclet-inner c-line">C Line
+										{% when '804' %}
+											<span class="chiclet-inner e-line">E Line
+										{% when '805' %}
+											<span class="chiclet-inner d-line">D Line
+										{% when '807' %}
+											<span class="chiclet-inner k-line">K Line
+										{% when '857' %}
+											<span class="chiclet-inner c-k-line">C & K Line Link
+										{% when '910' %}
+											<span class="chiclet-inner bus-j-line">J Line (910)
+										{% when '950' %}
+											<span class="chiclet-inner bus-j-line">J Line (950)
+										{% when '901' %}
+											<span class="chiclet-inner bus-g-line">G Line
 										{% else %}
-											<span class="chiclet-inner bus-standard">
+											<span class="chiclet-inner bus-standard">{{ line }}
 									{% endcase %}
-										{{ line }}
 									</span>
 								</div>
 							</div>
