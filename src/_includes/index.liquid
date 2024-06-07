@@ -303,12 +303,12 @@ mode: 'one-page'
 											</a>
 										</div>
 										<div class="{{ 'map-' | append: line }} map-accordion__content">
-											<img src="{{ '/img/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
+											<img src="{{ '/files/maps/' | append: lineUpdate.map | url }}" alt="a graphic map showing a visual representation of the described changes to Line {{ line }}">
 										</div>
 									{% endif %}
 								</div>
 								<div style="text-align: right;">
-									<a href="#chiclet-links">Back to top</a>
+									<a href="#chiclet-links">{{ pageContent.page.top }}</a>
 								</div>
 							</div>
 						</div>
