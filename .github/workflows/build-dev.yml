@@ -9,7 +9,7 @@ name: Build 11ty site for Dev
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
