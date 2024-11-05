@@ -1,6 +1,6 @@
 import pandas as pd
 
-CURRENT_SHAKEUP_FOLDER = '2023-12'
+CURRENT_SHAKEUP_FOLDER = '2024-06'
 
 SOURCE_FILE = 'src/_data/' + CURRENT_SHAKEUP_FOLDER + '/dec-2023-translations.xlsx'
 
