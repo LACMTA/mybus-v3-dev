@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     let form = document.querySelector('#downloadTakeone');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-       const form = e.target;
-       window.open(form.elements['options'].value);
-    });
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+           const form = e.target;
+           window.open(form.elements['options'].value);
+        });
+    }
 
     // document.querySelector('#optionsTakeone').addEventListener('change', function(e) {
     //     window.open(e.currentTarget.value);
